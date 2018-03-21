@@ -46,7 +46,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
   }
 
 
-  searchValueChangeHandler = (event) => {
+  private _searchValueChangeHandler = (event) => {
     function homemadeStartWith(text: string, startsWith: string): boolean {
       if (text.toUpperCase().slice(0, startsWith.length) === startsWith.toUpperCase()) {
         return true;
@@ -136,7 +136,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
 
           <SearchComp
             search={this.state.search}
-            changeHandler={this.searchValueChangeHandler} />
+            changeHandler={this._searchValueChangeHandler} />
           <div className={styles.content}>
 
             <p>Finished loading data</p>

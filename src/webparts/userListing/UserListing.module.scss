@@ -1,97 +1,84 @@
 .UserListing {
-  width:600px;
-  height:600px;
- text-align:center;
-  .loading{
+  width: 600px;
+  height: 600px;
+  text-align: center;
+  .loading {
     font-size: 40px;
-    margin-top:50px;
+    margin-top: 50px;
   }
-  .content{
-    color:red;
+  .content {
+    color: red;
   }
-
-
-
-  .UserListing .users > div {
-    display:grid;
+  .users>div {
+    display: grid;
     grid-template-columns: auto auto auto;
   }
-  
-  .UserListing .accordion {
-    display:grid;
+   .accordion {
+    display: grid;
     grid-template-columns: auto auto auto;
   }
-  
-  .UserListing .chevronLeft{
+   .chevronLeft {
     justify-content: center;
     align-self: center;
-    font-size:40px;
-    opacity:0.8;
+    font-size: 40px;
+    opacity: 0.8;
   }
-  
-  .UserListing .chevronRight{
+   .chevronRight {
     justify-content: center;
     align-self: center;
-    font-size:40px;
-    opacity:0.8;
+    font-size: 40px;
+    opacity: 0.8;
   }
-  
-  .UserListing .notActive {
-    opacity:0.25;
+   .notActive {
+    opacity: 0.25;
   }
-  
 }
 
 .hide {
-  display:none;
+  display: none;
 }
 
-
-
-.App .users > div {
-  display:grid;
+.App .users>div {
+  display: grid;
   grid-template-columns: auto auto auto;
 }
 
 .App .accordion {
-  display:grid;
+  display: grid;
   grid-template-columns: auto auto auto;
 }
 
-.App .chevronLeft{
+.App .chevronLeft {
   justify-content: center;
   align-self: center;
-  font-size:40px;
-  opacity:0.8;
+  font-size: 40px;
+  opacity: 0.8;
 }
 
-.App .chevronRight{
+.App .chevronRight {
   justify-content: center;
   align-self: center;
-  font-size:40px;
-  opacity:0.8;
+  font-size: 40px;
+  opacity: 0.8;
 }
 
 .App .notActive {
-  opacity:0.25;
+  opacity: 0.25;
 }
 
 // @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
-
 // .userListing {
 //   .container {
 //     max-width: 700px;
 //     margin: 0px auto;
 //     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 //   }
-
 //   .row {
 //     @include ms-Grid-row;
 //     @include ms-fontColor-white;
 //     background-color: $ms-color-themeDark;
 //     padding: 20px;
 //   }
-
 //   .column {
 //     @include ms-Grid-col;
 //     @include ms-lg10;
@@ -99,33 +86,27 @@
 //     @include ms-xlPush2;
 //     @include ms-lgPush1;
 //   }
-
 //   .title {
 //     @include ms-font-xl;
 //     @include ms-fontColor-white;
 //   }
-
 //   .subTitle {
 //     @include ms-font-l;
 //     @include ms-fontColor-white;
 //   }
-
 //   .description {
 //     @include ms-font-l;
 //     @include ms-fontColor-white;
 //   }
-
 //   .button {
 //     // Our button
 //     text-decoration: none;
 //     height: 32px;
-
 //     // Primary Button
 //     min-width: 80px;
 //     background-color: $ms-color-themePrimary;
 //     border-color: $ms-color-themePrimary;
 //     color: $ms-color-white;
-
 //     // Basic Button
 //     outline: transparent;
 //     position: relative;
@@ -138,7 +119,6 @@
 //     cursor: pointer;
 //     display: inline-block;
 //     padding: 0 16px;
-
 //     .label {
 //       font-weight: $ms-font-weight-semibold;
 //       font-size: $ms-font-size-m;
