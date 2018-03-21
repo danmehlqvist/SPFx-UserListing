@@ -1,6 +1,7 @@
 .UserListing {
   width:600px;
   height:600px;
+ text-align:center;
   .loading{
     font-size: 40px;
     margin-top:50px;
@@ -8,11 +9,73 @@
   .content{
     color:red;
   }
+
+
+
+  .UserListing .users > div {
+    display:grid;
+    grid-template-columns: auto auto auto;
+  }
+  
+  .UserListing .accordion {
+    display:grid;
+    grid-template-columns: auto auto auto;
+  }
+  
+  .UserListing .chevronLeft{
+    justify-content: center;
+    align-self: center;
+    font-size:40px;
+    opacity:0.8;
+  }
+  
+  .UserListing .chevronRight{
+    justify-content: center;
+    align-self: center;
+    font-size:40px;
+    opacity:0.8;
+  }
+  
+  .UserListing .notActive {
+    opacity:0.25;
+  }
+  
 }
 
 .hide {
   display:none;
 }
+
+
+
+.App .users > div {
+  display:grid;
+  grid-template-columns: auto auto auto;
+}
+
+.App .accordion {
+  display:grid;
+  grid-template-columns: auto auto auto;
+}
+
+.App .chevronLeft{
+  justify-content: center;
+  align-self: center;
+  font-size:40px;
+  opacity:0.8;
+}
+
+.App .chevronRight{
+  justify-content: center;
+  align-self: center;
+  font-size:40px;
+  opacity:0.8;
+}
+
+.App .notActive {
+  opacity:0.25;
+}
+
 // @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
 // .userListing {

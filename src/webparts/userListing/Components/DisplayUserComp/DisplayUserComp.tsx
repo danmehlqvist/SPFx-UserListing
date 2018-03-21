@@ -56,7 +56,7 @@ export default class DisplayUserComp extends React.Component<IDisplayUserCompPro
             photo = (
                 <div className={styles.fontAwesomePhoto}>
                     <Icon
-                        icon="user" />
+                        icon={user} />
                 </div>
             );
         }
