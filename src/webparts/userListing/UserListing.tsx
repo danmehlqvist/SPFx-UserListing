@@ -6,14 +6,15 @@ import getUsers from './getUsers';
 import IUser from './IUser';
 
 import Icon from 'react-icons-kit';
-import { envelopeO } from 'react-icons-kit/fa/envelopeO';
+import { chevronLeft } from 'react-icons-kit/fa/chevronLeft';
+import { chevronRight } from 'react-icons-kit/fa/chevronRight';
 
 import DisplayUserComp from './Components/DisplayUserComp/DisplayUserComp';
 import IDisplayUsersCompProps from './Components/DisplayUserComp/IDisplayUserCompProps';
 import SearchComp from './Components/SearchComp/SearchComp';
 
 let db: IUser[] = [];
-let personsFiltered = db;
+let usersFiltered = db;
 
 export default class UserListing extends React.Component<IUserListingProps, {}> {
 
@@ -42,6 +43,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
         initialized: true,
         users: db.slice(0, 9)
       });
+      usersFiltered = db;
     });
   }
 
@@ -54,48 +56,44 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
       return false;
     }
 
-    personsFiltered = db.filter(item => homemadeStartWith(item.lastName, event.target.value));
+    usersFiltered = db.filter(item => homemadeStartWith(item.lastName, event.target.value));
     //personsFiltered = db.filter(item => item.lastName.toUpperCase().startsWith(event.target.value.toUpperCase()));
-    console.log(personsFiltered);
     this.setState({
       search: event.target.value,
-      users: personsFiltered.slice((this.state.pagination - 1) * 9, this.state.pagination * 9)
+      pagination: 1,
+      //      users: usersFiltered.slice((this.state.pagination - 1) * 9, this.state.pagination * 9)
+      users: usersFiltered.slice(0, 9)
+
     })
   }
 
-  // handleChevronLeft = (event) => {
-  //   // console.log('Max pagination: ',Math.ceil(personsFiltered.length/9));
+  private _handleChevronLeft = (event) => {
+    if (this.state.pagination !== 1) {
+      this.setState({
+        pagination: this.state.pagination - 1,
+        users: usersFiltered.slice((this.state.pagination - 2) * 9, (this.state.pagination - 1) * 9)
+      })
+    }
+  }
 
-  //   if (this.state.pagination !== 1) {
-  //     console.log(`left: show users from ${(this.state.pagination - 2) * 9} to ${(this.state.pagination - 1) * 9}`);
-
-  //     this.setState({
-  //       pagination: this.state.pagination - 1,
-  //       persons: personsFiltered.slice((this.state.pagination - 2) * 9, (this.state.pagination - 1) * 9)
-  //     })
-  //   }
-  // }
-
-  // handleChevronRight = event => {
-
-  //   if (this.state.pagination !== Math.ceil(personsFiltered.length / 9)) {
-  //     console.log(`show users from ${(this.state.pagination) * 9} to ${(this.state.pagination + 1) * 9}`);
-
-  //     this.setState({
-  //       pagination: this.state.pagination + 1,
-  //       persons: personsFiltered.slice((this.state.pagination) * 9, (this.state.pagination + 1) * 9)
-  //     })
-  //   }
-  // }
-
-
+  private _handleChevronRight = event => {
+    if (this.state.pagination !== Math.ceil(usersFiltered.length / 9)) {
+      this.setState({
+        pagination: this.state.pagination + 1,
+        users: usersFiltered.slice((this.state.pagination) * 9, (this.state.pagination + 1) * 9)
+      })
+    }
+  }
 
   public render(): React.ReactElement<IUserListingProps> {
 
     let chevronLeftClasses = styles.chevronLeft;
     let chevronRightClasses = styles.chevronRight;
-    let maxPagination = Math.ceil(db.length / 9);
-    console.log(maxPagination);
+    let maxPagination = Math.ceil(usersFiltered.length / 9);
+    console.clear();
+    console.log('maxPagination:' + maxPagination);
+    console.log('usersFiltered.length' + usersFiltered.length);
+    console.log('this.state.users:' + this.state.users)
 
     if (this.state.pagination === 1) {
       chevronLeftClasses += ' ' + styles.notActive;
@@ -129,30 +127,25 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
           })}
         </div>
       );
+
       return (
         <div className={styles.UserListing} >
 
-          {/* <HeaderComp /> */}
-
-          <SearchComp
-            search={this.state.search}
-            changeHandler={this._searchValueChangeHandler} />
           <div className={styles.content}>
-
-            <p>Finished loading data</p>
-
-
             <div className={styles.accordion}>
-              {/* <div className={chevronLeftClasses} onClick={this.handleChevronLeft}>
-                a
-              </div> */}
+              <div className={chevronLeftClasses} onClick={this._handleChevronLeft}>
+                <Icon
+                  icon={chevronLeft} size={64} />
+              </div>
               <div className={styles.users}>
+                <SearchComp
+                  search={this.state.search}
+                  changeHandler={this._searchValueChangeHandler} />
                 {persons}
-                {/* <div className={chevronRightClasses} onClick={this.handleChevronRight}>
-                  b
-                </div> */}
               </div >
-
+              <div className={chevronRightClasses} onClick={this._handleChevronRight}>
+                <Icon icon={chevronRight} size={64} />
+              </div>
             </div>
           </div>
         </div>

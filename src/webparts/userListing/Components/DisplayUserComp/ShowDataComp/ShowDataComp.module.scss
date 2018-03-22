@@ -1,21 +1,24 @@
 .ShowDataComp {
-    position: relative;
-    border:1px solid black;
-    width:20px;
-    height:20px;
-    font-weight: bold;
-    cursor:default;
-    margin-bottom:5px;
-    background:red;
-    color:white;
-}
-
-.ShowDataComp .data{
+  position: relative;
+  width: 32px;
+  height: 32px;
+  font-weight: bold;
+  cursor: default;
+  margin-bottom: 5px;
+  // border: 1px red dotted;
+ 
+  .data {
+    display:inline-block;
     position: absolute;
-    width:auto;
-    top:0px;
-    left:20px;
-    background:black;
-    color:white;
-    z-index:1;
+    min-width: 200px;
+    max-width:400px;
+    top:20px;
+    left:-100px;
+    padding:10px;
+    border-radius:5px;
+    background: #ccc;
+    border: 1px solid #777;
+    color: black;
+    z-index: 1;
+  }
 }

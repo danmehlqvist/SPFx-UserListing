@@ -47,15 +47,19 @@ class ShowDataComp extends React.Component<IShowDataCompProps, {}> {
 
         //        let icon:object = {envelopeO};
         let icon: object;
+        let iconSize:number;
         switch (this.props.logo) {
             case "M":
                 icon = mobilePhone;
+                iconSize = 32;
                 break;
             case "W":
                 icon = phone;
+                iconSize=28;
                 break;
             case "E":
                 icon = envelopeO;
+                iconSize=22;
                 break;
             default:
                 icon = questionCircle;
@@ -65,7 +69,8 @@ class ShowDataComp extends React.Component<IShowDataCompProps, {}> {
             <div className={styles.ShowDataComp} onMouseEnter={this._handleMouseEnter} onMouseLeave={this._handleMouseLeave}>
 
                 <Icon
-                    icon={icon} />
+                    icon={icon} 
+                    size={iconSize}/>
                 {showData}
             </div>
         );

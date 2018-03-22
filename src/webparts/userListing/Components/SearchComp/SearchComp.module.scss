@@ -1,6 +1,13 @@
 .SearchComp {
-  background: green;
-  .inputClass {
-    background: red;
+  text-align:left;
+  margin-left:10px;
+  margin-bottom: 20px;
+  font-size:20px;
+  // ::-webkit-input-placeholder {
+  //   font-size: 34px;
+  //   font-style:italic;
+  //  }
+  input {
+    font-size:20px;
   }
 }

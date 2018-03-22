@@ -1,29 +1,28 @@
 .DisplayUserComp {
-    padding: 5px;
-    width: 150px;
-    display:grid;
-    grid-template-columns:120px 30px;
-    padding-left:10px;
+  padding: 5px;
+  width: 180x;
+  height: 180px;
+  display: grid;
+  grid-template-columns: 120px 30px;
+  padding: auto;
 }
 
 .DisplayUserComp img {
-    width: 100px;
-    height: auto;
-    border-radius: 50px;
-    border:3px solid #444;
-    box-shadow: 0px 4px 6px #666;
-    transition: all ease 0.5s;
+  width: 100px;
+  height: auto;
+  border-radius: 50px;
+  border: 3px solid #444;
+  box-shadow: 0px 4px 6px #666;
 }
-/* 
-.DisplayUserComp img:hover{
-    box-shadow:0px 4px 6px #111;
-} */
-
 
 .DisplayUserComp .name {
-    font-size: 20px;
+  font-size: 20px;
+}
+
+.DisplayUserComp .icons .mobileExtraPadding {
+  margin-bottom: 10px;
 }
 
 .DisplayUserComp .fontAwesomePhoto {
-    font-size:80px;
+  font-size: 80px;
 }

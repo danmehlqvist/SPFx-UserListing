@@ -13,7 +13,6 @@ const searchComponent = (props) => {
         <div className={styles.SearchComp}>
             <input
                 type="text"
-                className={this.inputClass}
                 onChange={props.changeHandler}
                 value={placeholder}
                 placeholder="Sök här"

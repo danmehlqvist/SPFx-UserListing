@@ -11,13 +11,15 @@ export default class DisplayUserComp extends React.Component<IDisplayUserCompPro
 
     public render(): React.ReactElement<IDisplayUserCompProps> {
 
+
         let renderTelWork: JSX.Element;
         if (this.props.telWork) {
             renderTelWork = (
                 <div>
                     <ShowDataComp
                         logo="W"
-                        data={this.props.telWork} />
+                        data={this.props.telWork}
+                    />
                 </div>
             );
         }
@@ -56,7 +58,8 @@ export default class DisplayUserComp extends React.Component<IDisplayUserCompPro
             photo = (
                 <div className={styles.fontAwesomePhoto}>
                     <Icon
-                        icon={user} />
+                        icon={user}
+                    />
                 </div>
             );
         }
@@ -74,11 +77,13 @@ export default class DisplayUserComp extends React.Component<IDisplayUserCompPro
                     </div>
                 </div >
                 {/* <div className={styles.data}> */}
-                < div >
-                    {renderTelWork}
-                    {renderTelMob}
-                    {renderEmail}
+                < div className={styles.icons}>
 
+                    {renderTelWork}
+                    <div className={styles.mobileExtraPadding}>
+                        {renderTelMob}
+                    </div>
+                    {renderEmail}
                 </div >
             </div >
         );

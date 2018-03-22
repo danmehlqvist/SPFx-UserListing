@@ -3,7 +3,7 @@ import IUser from './IUser';
 
 let db: IUser[] = [];
 function getUsers(): Promise<IUser[]> {
-    return fetch('https://randomuser.me/api/?results=20')
+    return fetch('https://randomuser.me/api/?results=200')
         .then((response) => {
             return response.json();
         }).then((json) => {
@@ -16,7 +16,7 @@ function getUsers(): Promise<IUser[]> {
                     email: r.email,
                     workPhone: r.phone,
                     mobilePhone: r.cell,
-                    picture: r.picture.thumbnail
+                    picture: r.picture.medium
                 };
                 users.push(user);
             });
