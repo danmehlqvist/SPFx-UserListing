@@ -1,7 +1,7 @@
 .UserListing {
-  // width: 600px;
-  // height: 600px;
   text-align: center;
+  width:760px;
+  height:680px;
   .loading {
     font-size: 40px;
     margin-top: 50px;
@@ -9,26 +9,32 @@
   .content {
     color: black;
   }
-  .users>div {
-    display: grid;
+  .users {
+    display:grid;
     grid-template-columns: auto auto auto;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: space-around;
+   padding-left:40px;
   }
    .accordion {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 64px auto 64px;
   }
   // Font size for chevronLeft and chevronRight is set in Icon component in UserListing.tsx
    .chevronLeft {
-    justify-content: center;
-    align-self: center;
+    margin-top:250px;
+    width:64px;
+    // align-self: center;
     opacity: 0.8;
     color:black;
   }
    .chevronRight {
-    justify-content: center;
-    align-self: center;
+    // align-self: center;
+    margin-top:250px;
     opacity: 0.8;
     color:black;
+    width:64px;
   }
    .notActive {
     opacity: 0.25;

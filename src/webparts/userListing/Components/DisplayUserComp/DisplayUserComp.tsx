@@ -71,10 +71,7 @@ export default class DisplayUserComp extends React.Component<IDisplayUserCompPro
                 < div >
                     {/* <img className={styles.picture} src={pic} alt="" /> */}
                     {photo}
-                    <div className={styles.name} >
-                        <div>{this.props.firstName}</div>
-                        <div>{this.props.lastName}</div>
-                    </div>
+
                 </div >
                 {/* <div className={styles.data}> */}
                 < div className={styles.icons}>
@@ -85,6 +82,9 @@ export default class DisplayUserComp extends React.Component<IDisplayUserCompPro
                     </div>
                     {renderEmail}
                 </div >
+                <div className={styles.name} >
+                    <div>{this.props.firstName} </div><div>{this.props.lastName}</div>
+                </div>
             </div >
         );
 

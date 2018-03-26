@@ -1,7 +1,10 @@
 define([], function() {
   return {
-    "PropertyPaneDescription": "Description",
-    "BasicGroupName": "Group Name",
-    "DescriptionFieldLabel": "Description Field"
+    "PropertyPaneDescription": "",
+    "BasicGroupName": "Settings",
+    "DescriptionFieldLabel": "Description Field",
+    "WidthFieldLabel":"Width in pixels",
+    "HeightFieldLabel":"Height in pixels",
+    "SearchHereText":"Search..."
   }
 });

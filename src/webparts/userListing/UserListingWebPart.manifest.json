@@ -20,7 +20,9 @@
     "description": { "default": "Web Part for listing users with picture, email, work phone &amp; mobile phone." },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "UserListing"
+      "description": "UserListing",
+      "height":"600",
+      "width":"600"
     }
   }]
 }
