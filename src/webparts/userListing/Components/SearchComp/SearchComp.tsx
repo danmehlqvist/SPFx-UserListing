@@ -20,5 +20,5 @@ const searchComponent = (props) => {
         </div>
     );
 
-}
+};
 export default searchComponent;

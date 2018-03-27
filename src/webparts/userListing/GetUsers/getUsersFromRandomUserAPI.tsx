@@ -1,33 +1,33 @@
 import { Environment, EnvironmentType } from '@microsoft/sp-core-library';
-import IUser from './IUser';
+import IUser from './../IUser';
 
 import { SPHttpClient, SPHttpClientConfiguration, SPHttpClientResponse, ODataVersion, ISPHttpClientConfiguration } from '@microsoft/sp-http';
 import { IODataUser, IODataWeb } from '@microsoft/sp-odata-types';
 
 let db: IUser[] = [];
 
-export function getUsersFromSP(): Promise<IUser[]> {
+// export function getUsersFromSP(): Promise<IUser[]> {
 
-    console.clear();
-    console.log(this);
-    const spHttpClient: SPHttpClient = this.context.spHttpClient;
-    const currentWebUrl: string = this.context.pageContext.web.absoluteUrl;
+//     console.clear();
+//     console.log(this);
+//     const spHttpClient: SPHttpClient = this.context.spHttpClient;
+//     const currentWebUrl: string = this.context.pageContext.web.absoluteUrl;
 
-    const spSearchConfig: ISPHttpClientConfiguration = {
-        defaultODataVersion: ODataVersion.v3
-    };
+//     const spSearchConfig: ISPHttpClientConfiguration = {
+//         defaultODataVersion: ODataVersion.v3
+//     };
 
-    const clientConfigODataV3: SPHttpClientConfiguration = SPHttpClient.configurations.v1.overrideWith(spSearchConfig);
+//     const clientConfigODataV3: SPHttpClientConfiguration = SPHttpClient.configurations.v1.overrideWith(spSearchConfig);
 
-    // spHttpClient.get(`${currentWebUrl}/_api/search/query?querytext='sharepoint'`, clientConfigODataV3).then((response: SPHttpClientResponse) => {
-    //     console.clear();
-    //     response.json().then((responseJSON: any) => {
-    //       console.log(responseJSON);
-    //     });
-    //   });
+//     // spHttpClient.get(`${currentWebUrl}/_api/search/query?querytext='sharepoint'`, clientConfigODataV3).then((response: SPHttpClientResponse) => {
+//     //     console.clear();
+//     //     response.json().then((responseJSON: any) => {
+//     //       console.log(responseJSON);
+//     //     });
+//     //   });
 
-    return null;
-}
+//     return null;
+// }
 
 
 function getUsersFromRandomUserAPI(): Promise<IUser[]> {

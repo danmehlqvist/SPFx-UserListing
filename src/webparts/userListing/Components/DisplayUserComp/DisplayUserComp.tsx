@@ -53,7 +53,7 @@ export default class DisplayUserComp extends React.Component<IDisplayUserCompPro
                 <div>
                     <img src={this.props.photo} alt={altText} />
                 </div>
-            )
+            );
         } else {    // No photo. Use FontAwesome
             photo = (
                 <div className={styles.fontAwesomePhoto}>
