@@ -1,0 +1,42 @@
+.DisplayUserComp {
+    height:160px;
+    width:120px;
+    .pic{
+        height:72px;
+        width:72px;
+        border-radius: 36px;
+        // border:3px solid #333;
+        box-shadow: 3px 3px 2px #333;
+        overflow: hidden;
+        margin:0 24px; // För att centrera skiten
+    }
+
+    .icon{
+        height:72px;
+        width:72px;
+        margin-bottom:40px;
+        color:#ccc;
+        text-align:center;
+        border-radius:36px;
+        box-shadow: 3px 3px 2px #333;
+        // border:3px solid #333;
+        margin:auto;
+    }
+
+    .photo{
+        margin-bottom:10px;
+    }
+
+    .name{
+        font-size:14px;
+    }
+
+    .highlightedText {
+        font-weight:bold;
+    }
+}
+
+.DisplayUserComp:hover{
+    background:#fafafa;
+    border-radius:10px;
+}

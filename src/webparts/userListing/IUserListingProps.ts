@@ -1,9 +1,8 @@
 import {SPHttpClient} from "@microsoft/sp-http";
 
 export interface IUserListingProps {
-  description: string;
-  height:string;
-  width:string;
+  heightUsers:string;
+  widthUsers:string;
   absoluteUrl:string;
   spHttpClient: SPHttpClient;
 }

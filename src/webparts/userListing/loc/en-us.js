@@ -3,8 +3,8 @@ define([], function() {
     "PropertyPaneDescription": "",
     "BasicGroupName": "Settings",
     "DescriptionFieldLabel": "Description Field",
-    "WidthFieldLabel":"Width in pixels",
-    "HeightFieldLabel":"Height in pixels",
+    "WidthFieldLabel":"Width in number of users",
+    "HeightFieldLabel":"Height in number of users",
     "SearchHereText":"Search..."
   }
 });

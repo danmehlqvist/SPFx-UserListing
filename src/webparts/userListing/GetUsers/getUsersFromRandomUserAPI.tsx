@@ -41,10 +41,8 @@ function getUsersFromRandomUserAPI(): Promise<IUser[]> {
                 let user: IUser = {
                     firstName: capitalizeFirstLetter(r.name.first),
                     lastName: capitalizeFirstLetter(r.name.last),
-                    email: r.email,
-                    workPhone: r.phone,
-                    mobilePhone: r.cell,
-                    picture: r.picture.medium
+                    pictureUrl: r.picture.medium,
+                    accountName: 'Random User API'
                 };
                 users.push(user);
             });

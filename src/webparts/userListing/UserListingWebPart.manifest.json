@@ -18,11 +18,10 @@
     "group": { "default": "Other" },
     "title": { "default": "UserListing" },
     "description": { "default": "Web Part for listing users with picture, email, work phone &amp; mobile phone." },
-    "officeFabricIconFontName": "Page",
+    "officeFabricIconFontName": "People",
     "properties": {
-      "description": "UserListing",
-      "height":"600",
-      "width":"600"
+      "heightUsers":"4",
+      "widthUsers":"4"
     }
   }]
 }
