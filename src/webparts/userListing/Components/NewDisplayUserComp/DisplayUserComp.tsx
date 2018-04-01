@@ -7,12 +7,14 @@ import { userSecret } from 'react-icons-kit/fa/userSecret';
 import { userCircle } from 'react-icons-kit/fa/userCircle';
 import { homemadeStartsWith } from '../../helperFunctions';
 
+const noPic = require('./assets/noPicture.jpg');
+
 export default class DisplayUserComp extends React.Component<IDisplayUserCompProps, {}> {
 
     public render(): React.ReactElement<IDisplayUserCompProps> {
         let photo: JSX.Element;
         // if (this.props.pictureUrl) { // Picture exists
-        if (this.props.pictureUrl) { // Picture exists
+        if (this.props.pictureUrl !== "null") { // Picture exists
             photo = (
                 <div className={styles.pic}>
                     <img src={this.props.pictureUrl} alt="User Profile Picture" />
@@ -20,9 +22,13 @@ export default class DisplayUserComp extends React.Component<IDisplayUserCompPro
             );
         } else { // No picture exists, 
             photo = (
-                <div className={styles.icon}>
-                    <Icon icon={userCircle} size={72} />
+                <div className={styles.pic}>
+                    <img src={noPic} alt="User Profile Picture" />
                 </div>);
+            // photo = (
+            //     <div className={styles.icon}>
+            //         <Icon icon={userCircle} size={72} />
+            //     </div>);
         }
 
         const renderName = (name: string, search: string): JSX.Element => {
@@ -33,18 +39,18 @@ export default class DisplayUserComp extends React.Component<IDisplayUserCompPro
                         <span>{name.slice(search.length, name.length)}</span>
 
                     </div>
-                )
+                );
             } else {
                 return (
                     <div>
                         {name}
                     </div>
-                )
+                );
             }
-        }
-        
+        };
+
         return (
-            <div className={styles.DisplayUserComp}>
+            <div className={styles.DisplayUserComp} onClick={this.props.handleClick.bind(this, this.props.accountName)}>
                 <div className={styles.photo}>
                     {photo}
                 </div>

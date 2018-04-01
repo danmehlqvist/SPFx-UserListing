@@ -12,8 +12,12 @@ import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import DisplayUserComp from "./Components/NewDisplayUserComp/DisplayUserComp";
 import IDisplayUsersCompProps from "./Components/NewDisplayUserComp/IDisplayUserCompProps";
 import SearchComp from "./Components/SearchComp/SearchComp";
+import DisplaySingleUserComp from './Components/DisplaySingleUserComp/DisplaySingleUserComp';
+import IDisplaySingleUserCompProps from './Components/DisplaySingleUserComp/IDisplaySingleUserCompProps';
 
-import {homemadeStartsWith} from './helperFunctions';
+
+
+import { homemadeStartsWith } from './helperFunctions';
 
 import {
   SPHttpClient,
@@ -23,15 +27,8 @@ import {
   ISPHttpClientConfiguration
 } from "@microsoft/sp-http";
 
-// interface stateType {
-//   initialized: boolean;
-//   users: IUser[];
-//   pagination: number;
-//   search: string;
-//   noOfUsersToShow: number;
-// }
-
 import { IODataUser, IODataWeb } from "@microsoft/sp-odata-types";
+
 
 let db: IUser[] = [];
 let usersFiltered: IUser[] = db;
@@ -48,7 +45,9 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     users: null,
     pagination: 1,
     search: "",
-    noOfUsersToShow: Number(this.props.widthUsers) * Number(this.props.heightUsers)
+    noOfUsersToShow: Number(this.props.widthUsers) * Number(this.props.heightUsers),
+    displaySingleUser: false,
+    singleUserToDisplay: null
   };
 
 
@@ -69,10 +68,10 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     let chevronLeftClasses: string = styles.chevronLeft;
     let chevronRightClasses: string = styles.chevronRight;
     let maxPagination: number = Math.ceil(usersFiltered.length / this.state.noOfUsersToShow);
-    // console.clear();
-    // console.log('maxPagination:' + maxPagination);
-    // console.log('usersFiltered.length' + usersFiltered.length);
-    // console.log('this.state.users:' + this.state.users)
+    // A hack for displaying the chevron correct on loadup and usersFiltered is still unitialized
+    if (maxPagination===0) {
+      maxPagination=1;
+    }
 
     if (this.state.pagination === 1) {
       chevronLeftClasses += " " + styles.notActive;
@@ -103,15 +102,32 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
               pictureUrl={person.pictureUrl}
               accountName={person.accountName}
               search={this.state.search}
+              handleClick={this._handleDisplaySingleUser}
               key={index} />
           );
         })}
       </div>
     );
 
+    let displaySingleUser: JSX.Element = null;
+    if (this.state.displaySingleUser) {
+      displaySingleUser = (
+        <div>
+          <DisplaySingleUserComp
+            email={this.state.singleUserToDisplay.email}
+            preferredName={this.state.singleUserToDisplay.preferredName}
+            mobilePhone={this.state.singleUserToDisplay.mobilePhone}
+            workPhone={this.state.singleUserToDisplay.workPhone}
+            pictureUrl={this.state.singleUserToDisplay.pictureUrl} />
+        </div>
+      );
+    }
 
     return (
       <div className={styles.UserListing} style={sizeStyle}>
+        <div>
+          {displaySingleUser}
+        </div>
         <div className={styles.content}>
           <SearchComp
             search={this.state.search}
@@ -132,24 +148,35 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
   }
 
 
-  public componentDidMount() {
-    getUsers(this._currentWebUrl, this._spHttpClient).then((users: IUser[]) => {
-      db = users;
-      const compare = (a, b) => {
-        if (a.lastName < b.lastName)
-          return -1;
-        if (a.lastName > b.lastName)
-          return 1;
-        return 0;
-      };
-      // ... and sort them before storing in db and setting state
-      db.sort(compare);
-      this.setState({
-        initialized: true,
-        users: db.slice(0, this.state.noOfUsersToShow)
+  public componentWillMount() {
+    getUsers(this._currentWebUrl, this._spHttpClient)
+      .then((users: IUser[]) => {
+
+        db = users;
+        const compare = (a, b) => {
+          if (a.lastName < b.lastName)
+            return -1;
+          if (a.lastName > b.lastName)
+            return 1;
+          return 0;
+        };
+        // ... and sort them before storing in db and setting state
+        //    console.log('Unsorted DB:' + JSON.stringify(db, undefined, 2));
+
+        db.sort(compare);
+        //    console.log('Sorted DB: ' + JSON.stringify(db, undefined, 2));
+        //        console.log('users: '+db.slice(0, Number(this.props.heightUsers)*Number(this.props.widthUsers)));
+        //   console.log('users: ' + db.slice(0, 1));
+        this.setState({
+          initialized: true,
+          users: db.slice(0, this.state.noOfUsersToShow)
+          // users: db.slice(0, 
+          // users: db.slice(0, 2)
+        });
+        //  console.log('State set?', JSON.stringify(this.state));
+        usersFiltered = db;
+
       });
-      usersFiltered = db;
-    });
   }
 
   public componentWillReceiveProps() {
@@ -162,13 +189,6 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
   }
 
   private _searchValueChangeHandler = (event) => {
-
-    // function homemadeStartWith(text: string, startsWith: string): boolean {
-    //   if (text.toUpperCase().slice(0, startsWith.length) === startsWith.toUpperCase()) {
-    //     return true;
-    //   }
-    //   return false;
-    // }
 
     usersFiltered = db.filter(item => homemadeStartsWith(item.lastName, event.target.value) || homemadeStartsWith(item.firstName, event.target.value));
     this.setState({
@@ -194,6 +214,35 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
         users: usersFiltered.slice((this.state.pagination) * this.state.noOfUsersToShow, (this.state.pagination + 1) * this.state.noOfUsersToShow)
       });
     }
+  }
+
+  private _handleDisplaySingleUser = (accountName, event) => {
+    const spHttpClient: SPHttpClient = this.props.spHttpClient;
+    const currentWebUrl = this._currentWebUrl;
+    //const usernameRequestString='i:0%23.f|membership|dan@mehlqvist.onmicrosoft.com';
+    const usernameRequestString = accountName.replace('#', '%23');
+    const url = currentWebUrl + "/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)?@v='" + usernameRequestString + "'";
+    spHttpClient.get(url, SPHttpClient.configurations.v1)
+      //spHttpClient.get(`${currentWebUrl}/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)?@v="${accountName}"`, SPHttpClient.configurations.v1)
+      .then((response: SPHttpClientResponse) => {
+        response.json().then((user) => {
+          // console.log(user);
+          // console.log('email: ' + user.Email);
+          // console.log('pictureUrl: ' + user.PictureUrl);
+          // console.log('work phone: ' + user.UserProfileProperties[10].Value);
+          // console.log('cell phone:' + user.UserProfileProperties[58].Value);
+          this.setState({
+            singleUserToDisplay: {
+              preferredName: user.UserProfileProperties[8].Value,
+              email: user.Email,
+              pictureUrl: user.PictureUrl,
+              workPhone: user.UserProfileProperties[10].Value,
+              mobilePhone: user.UserProfileProperties[58].Value
+            },
+            displaySingleUser:true
+          });
+        });
+      });
   }
 
 }

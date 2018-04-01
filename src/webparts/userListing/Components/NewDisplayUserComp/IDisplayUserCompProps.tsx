@@ -4,4 +4,5 @@ export default interface IDisplayUserCompProps{
     pictureUrl:string;
     accountName:string;
     search:string;
+    handleClick:any;
 }
