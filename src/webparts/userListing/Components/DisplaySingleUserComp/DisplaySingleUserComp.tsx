@@ -10,7 +10,7 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
     public render(): React.ReactElement<IDisplaySingleUserCompProps> {
 
         let photo: JSX.Element = null;
- 
+
         if (this.props.pictureUrl !== null) {
             photo = (
                 <img src={this.props.pictureUrl} />
@@ -33,6 +33,13 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
         const renderData = (data: string, icon: string): JSX.Element => {
             if (data == null || data === '') {
                 return null;
+            }
+            if (data === this.props.email) {
+                return (
+                    <div>
+                        <span className={styles.emailIcon}><Icon iconName={icon} /></span> <span> {data}</span>
+                    </div>
+                );
             }
             return (
                 <div>

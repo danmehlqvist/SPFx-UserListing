@@ -11,8 +11,8 @@ import { chevronRight } from "react-icons-kit/fa/chevronRight";
 
 import DisplayUserComp from "./Components/NewDisplayUserComp/DisplayUserComp";
 import IDisplayUsersCompProps from "./Components/NewDisplayUserComp/IDisplayUserCompProps";
-import SearchComp from "./Components/SearchComp/SearchComp";
-//import SearchComp from "./Components/NewSearchComp/SearchComp";
+//import SearchComp from "./Components/SearchComp/SearchComp";
+import SearchComp from "./Components/NewSearchComp/SearchComp";
 
 import DisplaySingleUserComp from './Components/DisplaySingleUserComp/DisplaySingleUserComp';
 import IDisplaySingleUserCompProps from './Components/DisplaySingleUserComp/IDisplaySingleUserCompProps';
@@ -112,13 +112,13 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
       top: "200px",
       left: (Number(this.props.widthUsers) * 125 + 2 * 64 ) / 2 - 150 + "px",
       zIndex:"1"
-    }
+    };
     let contentStyle=null;
     let displaySingleUser: JSX.Element = null;
     if (this.state.displaySingleUser) {
       contentStyle={
         filter:"blur(3px)"
-      }
+      };
       displaySingleUser = (
         <DisplaySingleUserComp 
           email={this.state.singleUserToDisplay.email}
@@ -141,8 +141,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
             changeHandler={this._searchValueChangeHandler} />
           <div className={styles.accordion}>
             <div className={chevronLeftClasses} style={accordionTopStyle} onClick={this._handleChevronLeft}>
-              <Icon
-                icon={chevronLeft} size={64} />
+              <Icon icon={chevronLeft} size={64} />
             </div>
             {users}
             <div className={chevronRightClasses} style={accordionTopStyle} onClick={this._handleChevronRight}>
@@ -196,10 +195,13 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
   }
 
   private _searchValueChangeHandler = (event) => {
-
-    usersFiltered = db.filter(item => homemadeStartsWith(item.lastName, event.target.value) || homemadeStartsWith(item.firstName, event.target.value));
+    // console.log('_searchValueChangeHandler() event:');
+    // console.log(event);
+    usersFiltered = db.filter(item => homemadeStartsWith(item.lastName, event) || homemadeStartsWith(item.firstName, event));
+    // usersFiltered = db.filter(item => homemadeStartsWith(item.lastName, event.target.value) || homemadeStartsWith(item.firstName, event.target.value));
     this.setState({
-      search: event.target.value,
+      // search: event.target.value,
+      search: event,
       pagination: 1,
       users: usersFiltered.slice(0, this.state.noOfUsersToShow)
     });
@@ -224,7 +226,6 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
   }
 
   private _handleCloseDisplaySingleUser = (event) =>{
-    alert('_handleCloseDisplaySingleUser');
     this.setState({
       displaySingleUser:false
     });

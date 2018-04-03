@@ -1,51 +1,52 @@
 .DisplaySingleUserComp {
-    display:grid;
-    grid-template-columns: 80px auto;
-    background:#eee;
-    padding:10px;
-    border: 1px solid black;
-    border-radius:10px;
-    width:300px;
-    margin:0 auto;
-    min-height:95px;
-    .pic img {
-        height:72px;
-        width:72px;
-        border-radius:36px;
-        float:left;
-        margin-right:10px;
+  display: grid;
+  grid-template-columns: 80px auto;
+  background: #eee;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 300px;
+  margin: 0 auto;
+  min-height: 95px;
+  .pic img {
+    height: 72px;
+    width: 72px;
+    border-radius: 36px;
+    float: left;
+    margin-right: 10px;
+  }
+  .text {
+    position: relative;
+    text-align: left;
+    font-size: 12px;
+    .name {
+      font-size: 17px;
     }
-
-    .text{
-        position:relative;
-        text-align: left;
-        font-size:12px;
-        .name{
-            font-size:17px;
-        }
-        a{
-            text-decoration:none;
-            color:black;
-            :hover{
-                text-decoration:underline;
-            }
-        }
-        div {
-            margin-bottom:6px;
-        }
-        .closeButton{
-            position:absolute;
-            top:0px;
-            right:10px;
-            cursor:pointer;
-            :hover{
-                border:1px solid black;
-                background:grey;
-            }
-        }
+    a {
+      text-decoration: none;
+      color: black;
+      :hover {
+        text-decoration: underline;
+      }
     }
-
-    .icon {
-        font-weight:bold;
+    div {
+      margin-bottom: 6px;
     }
+    .closeButton {
+      position: absolute;
+      top: 0px;
+      right: 10px;
+      cursor: pointer;
+      :hover {
+        border: 1px solid black;
+        background: grey;
+      }
+    }
+  }
+  .icon {
+    font-weight: bold;
+  }
+  .emailIcon {
+    font: inherit;
+  }
 }
