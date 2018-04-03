@@ -12,6 +12,8 @@ import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import DisplayUserComp from "./Components/NewDisplayUserComp/DisplayUserComp";
 import IDisplayUsersCompProps from "./Components/NewDisplayUserComp/IDisplayUserCompProps";
 import SearchComp from "./Components/SearchComp/SearchComp";
+//import SearchComp from "./Components/NewSearchComp/SearchComp";
+
 import DisplaySingleUserComp from './Components/DisplaySingleUserComp/DisplaySingleUserComp';
 import IDisplaySingleUserCompProps from './Components/DisplaySingleUserComp/IDisplaySingleUserCompProps';
 
@@ -54,7 +56,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
   public render(): React.ReactElement<IUserListingProps> {
 
     let accordionTop: number = (Number(this.props.heightUsers) * 160 - 64) / 2;
-    let sizeStyle: object = {
+    let sizeStyle = {
       // width of DisplayUserComp is 120. Width of chevrons is 64. 10 just some extra.
       width: Number(this.props.widthUsers) * 125 + 2 * 64 + 'px',
       // height of DisplayUserComp is 160. height of SearchComp is 53. 10 is some extra.
@@ -69,8 +71,8 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     let chevronRightClasses: string = styles.chevronRight;
     let maxPagination: number = Math.ceil(usersFiltered.length / this.state.noOfUsersToShow);
     // A hack for displaying the chevron correct on loadup and usersFiltered is still unitialized
-    if (maxPagination===0) {
-      maxPagination=1;
+    if (maxPagination === 0) {
+      maxPagination = 1;
     }
 
     if (this.state.pagination === 1) {
@@ -83,14 +85,10 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     if (!this.state.initialized) {  // data is not loaded yet
       return (
         <div>
-          Loading
+          Loading...
         </div>
       );
     }
-    //  else { // Data is loaded
-    //   // let usersStyle: object = {
-    //   //   width: Number(this.props.width) - 2 * 64 + 'px'
-    // };
 
     let users = (
       <div className={styles.users} >
@@ -109,26 +107,35 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
       </div>
     );
 
+    let displaySingleUserStyle:object = {
+      position: "absolute",
+      top: "200px",
+      left: (Number(this.props.widthUsers) * 125 + 2 * 64 ) / 2 - 150 + "px",
+      zIndex:"1"
+    }
+    let contentStyle=null;
     let displaySingleUser: JSX.Element = null;
     if (this.state.displaySingleUser) {
+      contentStyle={
+        filter:"blur(3px)"
+      }
       displaySingleUser = (
-        <div>
-          <DisplaySingleUserComp
-            email={this.state.singleUserToDisplay.email}
-            preferredName={this.state.singleUserToDisplay.preferredName}
-            mobilePhone={this.state.singleUserToDisplay.mobilePhone}
-            workPhone={this.state.singleUserToDisplay.workPhone}
-            pictureUrl={this.state.singleUserToDisplay.pictureUrl} />
-        </div>
-      );
+        <DisplaySingleUserComp 
+          email={this.state.singleUserToDisplay.email}
+          preferredName={this.state.singleUserToDisplay.preferredName}
+          mobilePhone={this.state.singleUserToDisplay.mobilePhone}
+          workPhone={this.state.singleUserToDisplay.workPhone}
+          pictureUrl={this.state.singleUserToDisplay.pictureUrl} 
+          closeButton={this._handleCloseDisplaySingleUser}/>
+        );
     }
 
     return (
       <div className={styles.UserListing} style={sizeStyle}>
-        <div>
+        <div className={styles.singleUser} style={displaySingleUserStyle}>
           {displaySingleUser}
         </div>
-        <div className={styles.content}>
+        <div className={styles.content} style={contentStyle}>
           <SearchComp
             search={this.state.search}
             changeHandler={this._searchValueChangeHandler} />
@@ -148,7 +155,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
   }
 
 
-  public componentWillMount() {
+  public componentDidMount() {
     getUsers(this._currentWebUrl, this._spHttpClient)
       .then((users: IUser[]) => {
 
@@ -216,6 +223,13 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     }
   }
 
+  private _handleCloseDisplaySingleUser = (event) =>{
+    alert('_handleCloseDisplaySingleUser');
+    this.setState({
+      displaySingleUser:false
+    });
+  }
+
   private _handleDisplaySingleUser = (accountName, event) => {
     const spHttpClient: SPHttpClient = this.props.spHttpClient;
     const currentWebUrl = this._currentWebUrl;
@@ -239,7 +253,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
               workPhone: user.UserProfileProperties[10].Value,
               mobilePhone: user.UserProfileProperties[58].Value
             },
-            displaySingleUser:true
+            displaySingleUser: true
           });
         });
       });

@@ -17,7 +17,7 @@
     "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Other
     "group": { "default": "Other" },
     "title": { "default": "UserListing" },
-    "description": { "default": "Web Part for listing users with picture, email, work phone &amp; mobile phone." },
+    "description": { "default": "Web Part for listing users with picture, email, work phone and mobile phone." },
     "officeFabricIconFontName": "People",
     "properties": {
       "heightUsers":"4",

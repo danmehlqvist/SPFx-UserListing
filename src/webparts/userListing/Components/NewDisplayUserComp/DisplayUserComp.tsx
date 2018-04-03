@@ -7,7 +7,7 @@ import { userSecret } from 'react-icons-kit/fa/userSecret';
 import { userCircle } from 'react-icons-kit/fa/userCircle';
 import { homemadeStartsWith } from '../../helperFunctions';
 
-const noPic = require('./assets/noPicture.jpg');
+const noPic = require('./assets/noPicture2.jpg');
 
 export default class DisplayUserComp extends React.Component<IDisplayUserCompProps, {}> {
 

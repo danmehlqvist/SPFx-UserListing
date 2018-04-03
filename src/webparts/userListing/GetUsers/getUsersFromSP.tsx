@@ -40,7 +40,9 @@ export default function getUsersFromSP(currentWebUrl: string, spHttpClient: SPHt
                             accountName: user.Cells[3].Value,
                             pictureUrl: encodeURI(user.Cells[13].Value)
                         };
-                        users.push(newUser);
+                        if (newUser.lastName !== '') {
+                            users.push(newUser);
+                        }
                     });
                     return users;
                 }) as Promise<IUser[]>;

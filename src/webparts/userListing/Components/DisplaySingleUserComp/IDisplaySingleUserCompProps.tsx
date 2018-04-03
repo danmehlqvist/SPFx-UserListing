@@ -4,4 +4,5 @@ export default interface IDisplaySingleUserCompProps {
     mobilePhone: string;
     workPhone:string;
     pictureUrl :string;
+    closeButton: any;
 }
