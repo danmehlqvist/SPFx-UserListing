@@ -1,6 +1,9 @@
-export default interface IUser{
-    firstName:string;
-    lastName:string;
-    accountName: string;
-    pictureUrl: string;
+export default interface IUser {
+    firstName: string;
+    lastName: string;
+    id: number;
+    email?: string,
+    workPhone?: string;
+    cellPhone?: string;
+    pictureUrl?: string;
 }

@@ -37,12 +37,13 @@ function getUsersFromRandomUserAPI(): Promise<IUser[]> {
         }).then((json) => {
             let results = json.results;
             let users: IUser[] = [];
-            results.forEach((r) => {
+            results.forEach((r,index) => {
                 let user: IUser = {
                     firstName: capitalizeFirstLetter(r.name.first),
                     lastName: capitalizeFirstLetter(r.name.last),
                     pictureUrl: r.picture.medium,
-                    accountName: 'Random User API'
+                    id: index
+                    // accountName: 'Random User API'
                 };
                 users.push(user);
             });
