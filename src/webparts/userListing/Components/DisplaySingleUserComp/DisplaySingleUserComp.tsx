@@ -3,13 +3,23 @@ import IDisplaySingleUserCompProps from './IDisplaySingleUserCompProps';
 import styles from './DisplaySingleUserComp.module.scss';
 const noPic = require('./assets/noPicture2.jpg');
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
-
+import { Image } from 'office-ui-fabric-react/lib/Image';
 
 export default class DisplaySingleUserComp extends React.Component<IDisplaySingleUserCompProps, {}> {
 
     public render(): React.ReactElement<IDisplaySingleUserCompProps> {
 
         let photo: JSX.Element = null;
+
+        // if (this.props.pictureUrl !== null) {
+        //     photo = (
+        //         <Image src={this.props.pictureUrl} height={72} width={72} />
+        //     );
+        // } else {
+        //     photo = (
+        //         <Image src={noPic} alt="User profile picture" height={72} width={72} />
+        //     );
+        // }
 
         if (this.props.pictureUrl !== null) {
             photo = (
@@ -56,7 +66,7 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
                         {renderData(this.props.workPhone, 'Phone')}
                     </div>
                     <div>
-                        {renderData(this.props.mobilePhone, 'CellPhone')}
+                        {renderData(this.props.cellPhone, 'CellPhone')}
                     </div>
                     <div>
                         <a href="mailto:{this.props.email}">{renderData(this.props.email, 'Mail')}</a>

@@ -126,7 +126,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
           email={this.state.singleUserToDisplay.email}
           firstName={this.state.singleUserToDisplay.firstName}
           lastName={this.state.singleUserToDisplay.lastName}
-          mobilePhone={this.state.singleUserToDisplay.mobilePhone}
+          cellPhone={this.state.singleUserToDisplay.cellPhone}
           workPhone={this.state.singleUserToDisplay.workPhone}
           pictureUrl={this.state.singleUserToDisplay.pictureUrl}
           closeButton={this._handleCloseDisplaySingleUser} />

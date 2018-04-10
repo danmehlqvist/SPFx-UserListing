@@ -2,7 +2,7 @@ export default interface IDisplaySingleUserCompProps {
     email:string;
     firstName:string;
     lastName:string;
-    mobilePhone: string;
+    cellPhone: string;
     workPhone:string;
     pictureUrl :string;
     closeButton: any;
