@@ -28,7 +28,7 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
             if (data === this.props.email) {
                 return (
                     <div>
-                        <span className={styles.emailIcon}><Icon iconName={icon} /></span> <span> {data}</span>
+                        <span className={styles.emailIcon}> <Icon iconName={icon} /></span> <span> {data}</span>
                     </div>
                 );
             }

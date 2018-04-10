@@ -110,7 +110,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
 
     let displaySingleUserStyle: object = {
       position: "absolute",
-      top: "200px",
+      top: "150px",
       left: (Number(this.props.widthUsers) * 125 + 2 * 64) / 2 - 150 + "px",
       zIndex: "1"
     };

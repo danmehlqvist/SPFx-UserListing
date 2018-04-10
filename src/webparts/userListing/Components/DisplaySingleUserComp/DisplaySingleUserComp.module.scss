@@ -1,7 +1,7 @@
 .DisplaySingleUserComp {
   display: grid;
   grid-template-columns: 80px auto;
-  background: #eee;
+  background: #ffffff;
   padding: 10px;
   border: 1px solid black;
   border-radius: 10px;
@@ -20,7 +20,7 @@
     text-align: left;
     font-size: 12px;
     .name {
-      font-size: 17px;
+      font-size: 21px;
     }
     a {
       text-decoration: none;
@@ -34,19 +34,23 @@
     }
     .closeButton {
       position: absolute;
+      color: #0078d7;
       top: 0px;
       right: 10px;
       cursor: pointer;
       :hover {
-        border: 1px solid black;
-        background: grey;
+        border: 1px solid #0078d7;
+        background: #ccc;
       }
     }
   }
   .icon {
     font-weight: bold;
+    position:relative;
+    bottom:-1px;
   }
   .emailIcon {
-    font: inherit;
+    position: relative;
+    bottom: -2px;
   }
 }
