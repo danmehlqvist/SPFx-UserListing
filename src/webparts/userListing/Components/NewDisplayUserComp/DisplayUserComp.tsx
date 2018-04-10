@@ -12,9 +12,9 @@ const noPic = require('./assets/noPicture2.jpg');
 export default class DisplayUserComp extends React.Component<IDisplayUserCompProps, {}> {
 
     public render(): React.ReactElement<IDisplayUserCompProps> {
+
         let photo: JSX.Element;
-        // if (this.props.pictureUrl) { // Picture exists
-        if (this.props.pictureUrl !== "null") { // Picture exists
+        if (this.props.pictureUrl !== null) { // Picture exists
             photo = (
                 <div className={styles.pic}>
                     <img src={this.props.pictureUrl} alt="User Profile Picture" />
@@ -23,12 +23,8 @@ export default class DisplayUserComp extends React.Component<IDisplayUserCompPro
         } else { // No picture exists, 
             photo = (
                 <div className={styles.pic}>
-                    <img src={noPic} alt="User Profile Picture" />
+                    <img src={noPic}/>
                 </div>);
-            // photo = (
-            //     <div className={styles.icon}>
-            //         <Icon icon={userCircle} size={72} />
-            //     </div>);
         }
 
         const renderName = (name: string, search: string): JSX.Element => {
@@ -50,7 +46,7 @@ export default class DisplayUserComp extends React.Component<IDisplayUserCompPro
         };
 
         return (
-            <div className={styles.DisplayUserComp} onClick={this.props.handleClick.bind(this, this.props.accountName)}>
+            <div className={styles.DisplayUserComp} onClick={this.props.handleClick.bind(this, this.props.index)}>
                 <div className={styles.photo}>
                     {photo}
                 </div>

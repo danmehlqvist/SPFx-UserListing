@@ -99,7 +99,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
               firstName={person.firstName}
               lastName={person.lastName}
               pictureUrl={person.pictureUrl}
-              accountName={person.accountName}
+              index={person.index}
               search={this.state.search}
               handleClick={this._handleDisplaySingleUser}
               key={index} />
@@ -114,6 +114,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
       left: (Number(this.props.widthUsers) * 125 + 2 * 64) / 2 - 150 + "px",
       zIndex: "1"
     };
+
     let contentStyle = null;
     let displaySingleUser: JSX.Element = null;
     if (this.state.displaySingleUser) {
@@ -123,7 +124,8 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
       displaySingleUser = (
         <DisplaySingleUserComp
           email={this.state.singleUserToDisplay.email}
-          preferredName={this.state.singleUserToDisplay.preferredName}
+          firstName={this.state.singleUserToDisplay.firstName}
+          lastName={this.state.singleUserToDisplay.lastName}
           mobilePhone={this.state.singleUserToDisplay.mobilePhone}
           workPhone={this.state.singleUserToDisplay.workPhone}
           pictureUrl={this.state.singleUserToDisplay.pictureUrl}
@@ -156,35 +158,11 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
 
 
   public componentDidMount() {
-    let user1: IUser = {
-      firstName: 'Adam',
-      lastName: 'Adamsson',
-      id: 10
-    };
-    let user2: IUser = {
-      firstName: 'Bertil',
-      lastName: 'Bertilsson',
-      workPhone: "22222222222222",
-      cellPhone: null,
-      email: "bertil@mehlqvist.onmicrosoft.com",
-      id: 14
-    };
-    let user3: IUser = {
-      firstName: 'Dan',
-      lastName: 'Mehlqvist',
-      id: 6
-    };
-    let testUsers: IUser[] = [user1, user2, user3];
 
-    // getUsersBatched(null, this._currentWebUrl, this._spHttpClient);
-    getUsersProperties(testUsers, this._currentWebUrl, this._spHttpClient)
-      .then((users: IUser[]) => {
-        console.log('The returned promise from getUserProperties: ',users);
-      });
     getUsers(this._currentWebUrl, this._spHttpClient)
       .then((users: IUser[]) => {
         db = users;
-        console.log('Users: ', users);
+        // console.log('Users: ', users);
         const compare = (a, b) => {
           if (a.lastName < b.lastName)
             return -1;
@@ -192,22 +170,28 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
             return 1;
           return 0;
         };
-        // ... and sort them before storing in db and setting state
-        //    console.log('Unsorted DB:' + JSON.stringify(db, undefined, 2));
-
         db.sort(compare);
-        // console.clear();
-        // console.log('Sorted DB: ' + JSON.stringify(db, undefined, 2));
-        //        console.log('users: '+db.slice(0, Number(this.props.heightUsers)*Number(this.props.widthUsers)));
-        //   console.log('users: ' + db.slice(0, 1));
-        let usersTemp = db.slice(0, this.state.noOfUsersToShow);
-        this.setState({
-          initialized: true,
-          users: usersTemp
-          // users: db.slice(0, 
-          // users: db.slice(0, 2)
+        // Assign an index to each user after sorting
+        db.forEach((user, index) => {
+          console.log(index);
+          user.index = index;
         });
-        //  console.log('State set?', JSON.stringify(this.state));
+
+        let usersTemp = db.slice(0, this.state.noOfUsersToShow);
+        getUsersProperties(usersTemp, this._currentWebUrl, this._spHttpClient)
+          .then(usersOutput => {
+            // Updating the database
+            usersOutput.forEach(user => {
+              db[user.index] = { ...user };
+            });
+
+            this.setState({
+              initialized: true,
+              users: db.slice(0, this.state.noOfUsersToShow)
+            });
+          });
+
+
         usersFiltered = db;
 
       });
@@ -215,24 +199,37 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
 
   public componentWillReceiveProps() {
     console.log('running componentWillReceiveProps');
-    this.setState({
-      noOfUsersToShow: Number(this.props.heightUsers) * Number(this.props.widthUsers),
-      users: db.slice(0, Number(this.props.heightUsers) * Number(this.props.widthUsers)),
-      search: ''
-    });
+    let noOfUsersToShow = Number(this.props.heightUsers) * Number(this.props.widthUsers);
+    let usersTemp = db.slice(0, noOfUsersToShow);
+    getUsersProperties(usersTemp, this._currentWebUrl, this._spHttpClient)
+      .then(usersOutput => {
+        // Updating the database
+        usersOutput.forEach(user => {
+          db[user.index] = { ...user };
+        });
+
+        this.setState({
+          noOfUsersToShow: noOfUsersToShow,
+          users: db.slice(0, noOfUsersToShow),
+          search: ''
+        });
+      });
   }
 
   private _searchValueChangeHandler = (event) => {
-    // console.log('_searchValueChangeHandler() event:');
-    // console.log(event);
     usersFiltered = db.filter(item => homemadeStartsWith(item.lastName, event) || homemadeStartsWith(item.firstName, event));
-    // usersFiltered = db.filter(item => homemadeStartsWith(item.lastName, event.target.value) || homemadeStartsWith(item.firstName, event.target.value));
-    this.setState({
-      // search: event.target.value,
-      search: event,
-      pagination: 1,
-      users: usersFiltered.slice(0, this.state.noOfUsersToShow)
-    });
+    getUsersProperties(usersFiltered, this._currentWebUrl, this._spHttpClient)
+      .then(usersOutput => {
+        // Updating the database
+        usersOutput.forEach(user => {
+          db[user.index] = { ...user };
+        });
+        this.setState({
+          search: event,
+          pagination: 1,
+          users: usersOutput.slice(0, this.state.noOfUsersToShow)
+        });
+      });
   }
 
   private _handleChevronLeft = (event) => {
@@ -246,10 +243,17 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
 
   private _handleChevronRight = event => {
     if (this.state.pagination !== Math.ceil(usersFiltered.length / this.state.noOfUsersToShow)) {
-      this.setState({
-        pagination: this.state.pagination + 1,
-        users: usersFiltered.slice((this.state.pagination) * this.state.noOfUsersToShow, (this.state.pagination + 1) * this.state.noOfUsersToShow)
-      });
+      getUsersProperties(usersFiltered, this._currentWebUrl, this._spHttpClient)
+        .then(usersOutput => {
+          // Updating the database
+          usersOutput.forEach(user => {
+            db[user.index] = { ...user };
+          });
+          this.setState({
+            pagination: this.state.pagination + 1,
+            users: usersOutput.slice((this.state.pagination) * this.state.noOfUsersToShow, (this.state.pagination + 1) * this.state.noOfUsersToShow)
+          });
+        });
     }
   }
 
@@ -259,33 +263,11 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     });
   }
 
-  private _handleDisplaySingleUser = (accountName, event) => {
-    const spHttpClient: SPHttpClient = this.props.spHttpClient;
-    const currentWebUrl = this._currentWebUrl;
-    //const usernameRequestString='i:0%23.f|membership|dan@mehlqvist.onmicrosoft.com';
-    const usernameRequestString = accountName.replace('#', '%23');
-    const url = currentWebUrl + "/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)?@v='" + usernameRequestString + "'";
-    spHttpClient.get(url, SPHttpClient.configurations.v1)
-      //spHttpClient.get(`${currentWebUrl}/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)?@v="${accountName}"`, SPHttpClient.configurations.v1)
-      .then((response: SPHttpClientResponse) => {
-        response.json().then((user) => {
-          // console.log(user);
-          // console.log('email: ' + user.Email);
-          // console.log('pictureUrl: ' + user.PictureUrl);
-          // console.log('work phone: ' + user.UserProfileProperties[10].Value);
-          // console.log('cell phone:' + user.UserProfileProperties[58].Value);
-          this.setState({
-            singleUserToDisplay: {
-              preferredName: user.UserProfileProperties[8].Value,
-              email: user.Email,
-              pictureUrl: user.PictureUrl,
-              workPhone: user.UserProfileProperties[10].Value,
-              mobilePhone: user.UserProfileProperties[58].Value
-            },
-            displaySingleUser: true
-          });
-        });
-      });
+  private _handleDisplaySingleUser = (index, event) => {
+    this.setState({
+      singleUserToDisplay: db[index],
+      displaySingleUser: true
+    });
   }
 
 }

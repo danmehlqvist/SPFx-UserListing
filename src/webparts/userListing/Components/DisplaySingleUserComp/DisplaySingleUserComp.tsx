@@ -20,15 +20,6 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
                 <img src={noPic} alt="User profile picture" />
             );
         }
-        // if (this.props.pictureUrl !== "null") { // Picture exists
-        //     photo = (
-        //         <img src={this.props.pictureUrl} alt="User Profile Picture" />
-        //     );
-        // } else { // No picture exists, 
-        //     photo = (
-        //         <img src={noPic} alt="User Profile Picture" />
-        //     );
-        // }
 
         const renderData = (data: string, icon: string): JSX.Element => {
             if (data == null || data === '') {
@@ -59,7 +50,7 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
                         <Icon iconName="ChromeClose" />
                     </div>
                     <div className={styles.name}>
-                        {this.props.preferredName}
+                        {this.props.firstName} {this.props.lastName}
                     </div>
                     <div>
                         {renderData(this.props.workPhone, 'Phone')}
