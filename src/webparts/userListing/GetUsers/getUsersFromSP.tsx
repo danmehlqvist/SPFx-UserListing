@@ -52,7 +52,7 @@ export default function getUsersFromSP(currentWebUrl: string, spHttpClient: SPHt
 
             // Returnerara allt vad jag vill ha om en enskild användare med användarnamn
             //  let userName = 'dan@mehlqvist.onmicrosoft.com';
-            //    return spHttpClient.get(`${currentWebUrl}/_api/web/SiteUserInfoList/Items?$filter=UserName%20eq%20'${userName}'`, SPHttpClient.configurations.v1) //1
+            //    return spHt tpClient.get(`${currentWebUrl}/_api/web/SiteUserInfoList/Items?$filter=UserName%20eq%20'${userName}'`, SPHttpClient.configurations.v1) //1
             // Returnerar allt vad jag vill ha genom att använda id.
             //return spHttpClient.get(`${currentWebUrl}/_api/web/SiteUserInfoList/Items?$filter=Id%20eq%208`, SPHttpClient.configurations.v1) //1
             //    return spHttpClient.get(`${currentWebUrl}/_api/web/SiteUserInfoList/Items?$select=UserName,Created&$filter=UserName%20eq%20'${userName}'`, SPHttpClient.configurations.v1)
@@ -63,9 +63,9 @@ export default function getUsersFromSP(currentWebUrl: string, spHttpClient: SPHt
                     return response.json();
                 }).then((data) => {
                     let usersTemp = data.value.filter(user => user.LoginName.startsWith('i:0#.f'));
-                    console.clear();
+                    // console.clear();
                     //console.log(data);
-                    console.log(usersTemp);
+                  //  console.log(usersTemp);
 
                     let users: IUser[] = [];
                     usersTemp.forEach(user => {
@@ -77,10 +77,10 @@ export default function getUsersFromSP(currentWebUrl: string, spHttpClient: SPHt
                             lastName: lastNameTemp.join(' '),
                             id: user.Id
                         };
-                        console.log(newUser);
+                    //    console.log(newUser);
                         users.push(newUser);
                     });
-                    console.log(users);
+                    //console.log(users);
                     return users;
                 }) as Promise<IUser[]>;
     }

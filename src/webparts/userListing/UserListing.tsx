@@ -3,6 +3,7 @@ import styles from "./UserListing.module.scss";
 import { IUserListingProps } from "./IUserListingProps";
 import { escape } from "@microsoft/sp-lodash-subset";
 import getUsers from "./GetUsers/getUsers";
+import getUsersProperties from './GetUsers/getUsersProperties';
 import IUser from "./IUser";
 
 import Icon from "react-icons-kit";
@@ -70,10 +71,10 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     let chevronLeftClasses: string = styles.chevronLeft;
     let chevronRightClasses: string = styles.chevronRight;
     let maxPagination: number = Math.ceil(usersFiltered.length / this.state.noOfUsersToShow);
-    // A hack for displaying the chevron correct on loadup and usersFiltered is still unitialized
-    if (maxPagination === 0) {
-      maxPagination = 1;
-    }
+    // // A hack for displaying the chevron correct on loadup and usersFiltered is still unitialized
+    // if (maxPagination === 0) {
+    //   maxPagination = 1;
+    // }
 
     if (this.state.pagination === 1) {
       chevronLeftClasses += " " + styles.notActive;
@@ -107,27 +108,27 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
       </div>
     );
 
-    let displaySingleUserStyle:object = {
+    let displaySingleUserStyle: object = {
       position: "absolute",
       top: "200px",
-      left: (Number(this.props.widthUsers) * 125 + 2 * 64 ) / 2 - 150 + "px",
-      zIndex:"1"
+      left: (Number(this.props.widthUsers) * 125 + 2 * 64) / 2 - 150 + "px",
+      zIndex: "1"
     };
-    let contentStyle=null;
+    let contentStyle = null;
     let displaySingleUser: JSX.Element = null;
     if (this.state.displaySingleUser) {
-      contentStyle={
-        filter:"blur(3px)"
+      contentStyle = {
+        filter: "blur(3px)"
       };
       displaySingleUser = (
-        <DisplaySingleUserComp 
+        <DisplaySingleUserComp
           email={this.state.singleUserToDisplay.email}
           preferredName={this.state.singleUserToDisplay.preferredName}
           mobilePhone={this.state.singleUserToDisplay.mobilePhone}
           workPhone={this.state.singleUserToDisplay.workPhone}
-          pictureUrl={this.state.singleUserToDisplay.pictureUrl} 
-          closeButton={this._handleCloseDisplaySingleUser}/>
-        );
+          pictureUrl={this.state.singleUserToDisplay.pictureUrl}
+          closeButton={this._handleCloseDisplaySingleUser} />
+      );
     }
 
     return (
@@ -155,10 +156,35 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
 
 
   public componentDidMount() {
+    let user1: IUser = {
+      firstName: 'Adam',
+      lastName: 'Adamsson',
+      id: 10
+    };
+    let user2: IUser = {
+      firstName: 'Bertil',
+      lastName: 'Bertilsson',
+      workPhone: "22222222222222",
+      cellPhone: null,
+      email: "bertil@mehlqvist.onmicrosoft.com",
+      id: 14
+    };
+    let user3: IUser = {
+      firstName: 'Dan',
+      lastName: 'Mehlqvist',
+      id: 6
+    }
+    let testUsers: IUser[] = [user1, user2, user3];
+
+    // getUsersBatched(null, this._currentWebUrl, this._spHttpClient);
+    getUsersProperties(testUsers, this._currentWebUrl, this._spHttpClient)
+      .then((users: IUser[]) => {
+        console.log('The returned promise from getUserProperties: ',users);
+      });
     getUsers(this._currentWebUrl, this._spHttpClient)
       .then((users: IUser[]) => {
-
         db = users;
+        console.log('Users: ', users);
         const compare = (a, b) => {
           if (a.lastName < b.lastName)
             return -1;
@@ -170,12 +196,14 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
         //    console.log('Unsorted DB:' + JSON.stringify(db, undefined, 2));
 
         db.sort(compare);
-        //    console.log('Sorted DB: ' + JSON.stringify(db, undefined, 2));
+        // console.clear();
+        // console.log('Sorted DB: ' + JSON.stringify(db, undefined, 2));
         //        console.log('users: '+db.slice(0, Number(this.props.heightUsers)*Number(this.props.widthUsers)));
         //   console.log('users: ' + db.slice(0, 1));
+        let usersTemp = db.slice(0, this.state.noOfUsersToShow);
         this.setState({
           initialized: true,
-          users: db.slice(0, this.state.noOfUsersToShow)
+          users: usersTemp
           // users: db.slice(0, 
           // users: db.slice(0, 2)
         });
@@ -225,9 +253,9 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     }
   }
 
-  private _handleCloseDisplaySingleUser = (event) =>{
+  private _handleCloseDisplaySingleUser = (event) => {
     this.setState({
-      displaySingleUser:false
+      displaySingleUser: false
     });
   }
 
