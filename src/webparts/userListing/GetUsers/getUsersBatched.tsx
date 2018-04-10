@@ -63,9 +63,6 @@ const getUsersBatched = (users: IUser[], currentWebUrl: string, spHttpClient: SP
     batchContents.push('--' + batchUUID);
     let batchBody = batchContents.join('\r\n');
 
-    console.clear();
-    console.log(batchBody);
-
     const options: ISPHttpClientBatchOptions = {
         headers: batchRequestHeader,
         body: batchBody
@@ -99,10 +96,6 @@ const getUsersBatched = (users: IUser[], currentWebUrl: string, spHttpClient: SP
                     // Do nothing. Unable to parse json means it was one of the garbage lines
                 }
             });
-
-            console.log('final result:');
-            console.log(updatedUsers);
-
             return updatedUsers;
         });
 

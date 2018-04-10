@@ -173,7 +173,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
       firstName: 'Dan',
       lastName: 'Mehlqvist',
       id: 6
-    }
+    };
     let testUsers: IUser[] = [user1, user2, user3];
 
     // getUsersBatched(null, this._currentWebUrl, this._spHttpClient);
