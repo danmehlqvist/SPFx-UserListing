@@ -10,10 +10,9 @@ import Icon from "react-icons-kit";
 import { chevronLeft } from "react-icons-kit/fa/chevronLeft";
 import { chevronRight } from "react-icons-kit/fa/chevronRight";
 
-import DisplayUserComp from "./Components/NewDisplayUserComp/DisplayUserComp";
-import IDisplayUsersCompProps from "./Components/NewDisplayUserComp/IDisplayUserCompProps";
-//import SearchComp from "./Components/SearchComp/SearchComp";
-import SearchComp from "./Components/NewSearchComp/SearchComp";
+import DisplayUserComp from "./Components/DisplayUserComp/DisplayUserComp";
+import IDisplayUsersCompProps from "./Components/DisplayUserComp/IDisplayUserCompProps";
+import SearchComp from "./Components/SearchComp/SearchComp";
 
 import DisplaySingleUserComp from './Components/DisplaySingleUserComp/DisplaySingleUserComp';
 import IDisplaySingleUserCompProps from './Components/DisplaySingleUserComp/IDisplaySingleUserCompProps';
@@ -99,6 +98,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
               firstName={person.firstName}
               lastName={person.lastName}
               pictureUrl={person.pictureUrl}
+              email={person.email}
               index={person.index}
               search={this.state.search}
               handleClick={this._handleDisplaySingleUser}
@@ -191,7 +191,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
             });
           });
 
-
+        console.log(db);
         usersFiltered = db;
 
       });

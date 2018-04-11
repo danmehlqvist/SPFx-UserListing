@@ -21,9 +21,19 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
         //     );
         // }
 
+        // if (this.props.pictureUrl !== null) {
+        //     photo = (
+        //         <img src={this.props.pictureUrl} />
+        //     );
+        // } else {
+        //     photo = (
+        //         <img src={noPic} alt="User profile picture" />
+        //     );
+        // }
+
         if (this.props.pictureUrl !== null) {
             photo = (
-                <img src={this.props.pictureUrl} />
+                <img src={"/_layouts/15/userphoto.aspx?size=M&username="+this.props.email}  />
             );
         } else {
             photo = (

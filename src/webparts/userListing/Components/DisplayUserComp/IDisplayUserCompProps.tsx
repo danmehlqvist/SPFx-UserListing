@@ -1,8 +1,9 @@
 export default interface IDisplayUserCompProps{
     firstName:string;
     lastName:string;
+    pictureUrl:string;
     email:string;
-    telMob:string;
-    telWork:string;
-    photo?:string;
+    index:number;
+    search:string;
+    handleClick:any;
 }
