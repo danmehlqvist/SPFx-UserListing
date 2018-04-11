@@ -2,8 +2,6 @@
 
 - Add web part validations.
 
-- Fix issue with profile pictures returning a 302.
-
 - Change reference of noPic2.png
 
 - Refactor.

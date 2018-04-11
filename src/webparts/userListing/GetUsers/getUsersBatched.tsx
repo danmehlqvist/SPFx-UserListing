@@ -85,11 +85,6 @@ const getUsersBatched = (users: IUser[], currentWebUrl: string, spHttpClient: SP
                     updatedUser.email = jsonParsed.value[0].EMail;
                     updatedUser.cellPhone = jsonParsed.value[0].MobilePhone;
                     updatedUser.workPhone = jsonParsed.value[0].WorkPhone;
-                    if (jsonParsed.value[0].Picture) {
-                        updatedUser.pictureUrl = jsonParsed.value[0].Picture.Url;
-                    } else {
-                        updatedUser.pictureUrl = null;
-                    }
                     userIndex++;
                     updatedUsers.push(updatedUser);
                 } catch (error) {

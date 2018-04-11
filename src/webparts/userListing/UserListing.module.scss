@@ -20,19 +20,12 @@
     grid-template-columns: 64px auto 64px;
   }
   // Font size for chevronLeft and chevronRight is set in Icon component in UserListing.tsx
-   .chevronLeft {
+   .chevron {
     width:64px;
-    // align-self: center;
     opacity: 0.8;
     color:black;
   }
-   .chevronRight {
-    // align-self: center;
-    
-    opacity: 0.8;
-    color:black;
-    width:64px;
-  }
+  
    .notActive {
     opacity: 0.25;
   }

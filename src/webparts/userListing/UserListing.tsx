@@ -13,12 +13,8 @@ import { chevronRight } from "react-icons-kit/fa/chevronRight";
 import DisplayUserComp from "./Components/DisplayUserComp/DisplayUserComp";
 import IDisplayUsersCompProps from "./Components/DisplayUserComp/IDisplayUserCompProps";
 import SearchComp from "./Components/SearchComp/SearchComp";
-
 import DisplaySingleUserComp from './Components/DisplaySingleUserComp/DisplaySingleUserComp';
 import IDisplaySingleUserCompProps from './Components/DisplaySingleUserComp/IDisplaySingleUserCompProps';
-
-
-
 import { homemadeStartsWith } from './helperFunctions';
 
 import {
@@ -31,16 +27,13 @@ import {
 
 import { IODataUser, IODataWeb } from "@microsoft/sp-odata-types";
 
-
 let db: IUser[] = [];
 let usersFiltered: IUser[] = db;
 
 export default class UserListing extends React.Component<IUserListingProps, {}> {
-  //private _noOfUsersToShow: number = Number(this.props.widthUsers) * Number(this.props.heightUsers);
 
   private _currentWebUrl: string = this.props.absoluteUrl;
   private _spHttpClient: SPHttpClient = this.props.spHttpClient;
-  // private _oldNoOfUsersToShow;
 
   public state = {
     initialized: false,
@@ -67,8 +60,8 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
       marginTop: accordionTop
     };
 
-    let chevronLeftClasses: string = styles.chevronLeft;
-    let chevronRightClasses: string = styles.chevronRight;
+    let chevronLeftClasses: string = styles.chevron;
+    let chevronRightClasses: string = styles.chevron;
     let maxPagination: number = Math.ceil(usersFiltered.length / this.state.noOfUsersToShow);
     // // A hack for displaying the chevron correct on loadup and usersFiltered is still unitialized
     // if (maxPagination === 0) {

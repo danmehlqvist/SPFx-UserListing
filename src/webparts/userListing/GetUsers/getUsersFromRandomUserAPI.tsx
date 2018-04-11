@@ -41,7 +41,6 @@ function getUsersFromRandomUserAPI(): Promise<IUser[]> {
                 let user: IUser = {
                     firstName: capitalizeFirstLetter(r.name.first),
                     lastName: capitalizeFirstLetter(r.name.last),
-                    pictureUrl: r.picture.medium,
                     id: index
                     // accountName: 'Random User API'
                 };
