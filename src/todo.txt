@@ -1,9 +1,3 @@
-- Change height and width properties to sliders.
-
-- Add web part validations.
-
-- Change reference of noPic2.png
-
 - Refactor.
 
 - Clean up.
@@ -11,5 +5,3 @@
 - Can map be used instead of forEach?
 
 - Write proper comments
-
-- Delete all references to pictureUrl

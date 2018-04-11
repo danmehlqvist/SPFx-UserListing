@@ -4,7 +4,8 @@ import { Version } from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneTextField,
+  PropertyPaneSlider
 } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'UserListingWebPartStrings';
@@ -62,14 +63,23 @@ export default class UserListingWebPart extends BaseClientSideWebPart<IUserListi
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('widthUsers', {
-                  label: strings.WidthFieldLabel
-                  // onGetErrorMessage: this._valdiateWidthUsersAndHeightUsers.bind(this),
-                  // deferredValidationTime: 500
+                PropertyPaneSlider('widthUsers',{
+                  label: strings.WidthFieldLabel,
+                  min:1,
+                  max:10,
+                  value:4,
+                  step:1,
+                  showValue:true,
+                  disabled:false
                 }),
-                PropertyPaneTextField('heightUsers', {
-                  label: strings.HeightFieldLabel
-                  // onGetErrorMessage: this._valdiateWidthUsersAndHeightUsers.bind(this)
+                PropertyPaneSlider('heightUsers',{
+                  label: strings.HeightFieldLabel,
+                  min:1,
+                  max:10,
+                  value:4,
+                  step:1,
+                  showValue:true,
+                  disabled:false
                 })
               ]
             }
