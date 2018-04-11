@@ -57,14 +57,14 @@ export default class UserListingWebPart extends BaseClientSideWebPart<IUserListi
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: strings.WPSPropertyPaneDescription
           },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: strings.WPSBasicGroupName,
               groupFields: [
                 PropertyPaneSlider('widthUsers',{
-                  label: strings.WidthFieldLabel,
+                  label: strings.WPSWidthFieldLabel,
                   min:1,
                   max:10,
                   value:4,
@@ -73,10 +73,10 @@ export default class UserListingWebPart extends BaseClientSideWebPart<IUserListi
                   disabled:false
                 }),
                 PropertyPaneSlider('heightUsers',{
-                  label: strings.HeightFieldLabel,
+                  label: strings.WPSHeightFieldLabel,
                   min:1,
                   max:10,
-                  value:4,
+                  value:2,
                   step:1,
                   showValue:true,
                   disabled:false

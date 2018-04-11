@@ -1,10 +1,12 @@
+// WPS = WebPartSettings
+
+
 define([], function() {
   return {
-    "PropertyPaneDescription": "",
-    "BasicGroupName": "Settings",
-    "DescriptionFieldLabel": "Description Field",
-    "WidthFieldLabel":"Width in number of users",
-    "HeightFieldLabel":"Height in number of users",
-    "SearchHereText":"Search..."
+    "WPSBasicGroupName": "Settings",
+    "WPSWidthFieldLabel":"Width in number of users",
+    "WPSHeightFieldLabel":"Height in number of users",
+    "WPSPropertyPaneDescription": "",
+    "SearchPlaceholder":"Search Employees"
   }
 });

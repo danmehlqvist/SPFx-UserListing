@@ -5,21 +5,7 @@
     "id": "15dd8afb-3feb-41f5-b53e-c71a930a9239",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
-    "skipFeatureDeployment": true,
-    // "features": [{
-    //   "title": "user-listing-client-side-solution",
-    //   "description": "package-solution.json: description",
-    //   "id": "523fe887-ced5-4036-b564-8dad5c6c6e24",
-    //   "version": "1.0.0.0",
-    //   "assets": {
-    //     "elementManifests": [
-    //       "elements.xml"
-    //     ],
-    //     "elementFiles": [
-    //       "schema.xml"
-    //     ]
-    //   }
-    // }]
+    "skipFeatureDeployment": true
   },
   "paths": {
     "zippedPackage": "solution/user-listing.sppkg"

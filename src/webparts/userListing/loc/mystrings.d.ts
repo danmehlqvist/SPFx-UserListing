@@ -1,10 +1,9 @@
 declare interface IUserListingWebPartStrings {
-  PropertyPaneDescription: string;
-  BasicGroupName: string;
-  DescriptionFieldLabel: string;
-  WidthFieldLabel:string;
-  HeightFieldLabel:string;
-  SearchHereText:string;
+  WPSWidthFieldLabel:string;
+  WPSHeightFieldLabel:string;
+  WPSBasicGroupName: string;
+  WPSPropertyPaneDescription:string;
+  SearchPlaceholder:string;
 }
 
 declare module 'UserListingWebPartStrings' {
