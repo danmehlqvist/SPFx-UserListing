@@ -24,8 +24,7 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
                 </div>
             );
         };
-
-
+        
         return (
             <div className={styles.DisplaySingleUserComp}>
                 <div className={styles.pic}>
@@ -45,7 +44,7 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
                         {renderData(this.props.cellPhone, 'CellPhone')}
                     </div>
                     <div>
-                        <a href="mailto:{this.props.email}">{renderData(this.props.email, 'Mail')}</a>
+                        <a href={"mailto:"+this.props.email}>{renderData(this.props.email, 'Mail')}</a>
                     </div>
                 </div>
             </div>

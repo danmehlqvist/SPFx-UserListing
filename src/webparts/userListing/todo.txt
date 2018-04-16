@@ -1,1 +1,1 @@
-Fixar nu ShowDataComp för att få den att visa FA
+Fixa länken i DisplaySingleUser
