@@ -16,6 +16,7 @@ import SearchComp from "./Components/SearchComp/SearchComp";
 import DisplaySingleUserComp from './Components/DisplaySingleUserComp/DisplaySingleUserComp';
 import IDisplaySingleUserCompProps from './Components/DisplaySingleUserComp/IDisplaySingleUserCompProps';
 import { homemadeStartsWith } from './helperFunctions';
+import * as strings from 'UserListingWebPartStrings';
 
 import {
   SPHttpClient,
@@ -63,10 +64,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     let chevronLeftClasses: string = styles.chevron;
     let chevronRightClasses: string = styles.chevron;
     let maxPagination: number = Math.ceil(usersFiltered.length / this.state.noOfUsersToShow);
-    // // A hack for displaying the chevron correct on loadup and usersFiltered is still unitialized
-    // if (maxPagination === 0) {
-    //   maxPagination = 1;
-    // }
+    maxPagination = (maxPagination === 0) ? 1 : maxPagination;
 
     if (this.state.pagination === 1) {
       chevronLeftClasses += " " + styles.notActive;
@@ -82,24 +80,26 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
         </div>
       );
     }
-
-    let users = (
-      <div className={styles.users} >
-        {this.state.users.map((person, index) => {
-          return (
-            <DisplayUserComp
-              firstName={person.firstName}
-              lastName={person.lastName}
-              pictureUrl={person.pictureUrl}
-              email={person.email}
-              index={person.index}
-              search={this.state.search}
-              handleClick={this._handleDisplaySingleUser}
-              key={index} />
-          );
-        })}
-      </div>
-    );
+    console.log('maxPagination: ', maxPagination);
+    console.log('this.state.pagination: ', this.state.pagination);
+    let users: JSX.Element = (this.state.users.length === 0) ?
+      (<p style={{ "fontSize": "18px", "marginTop": accordionTop + 10 + "px" }}> {strings.SearchNoUsersFound}</p >) : (
+        <div className={styles.users} >
+          {this.state.users.map((person, index) => {
+            return (
+              <DisplayUserComp
+                firstName={person.firstName}
+                lastName={person.lastName}
+                pictureUrl={person.pictureUrl}
+                email={person.email}
+                index={person.index}
+                search={this.state.search}
+                handleClick={this._handleDisplaySingleUser}
+                key={index} />
+            );
+          })}
+        </div>
+      );
 
     let displaySingleUserStyle: object = {
       position: "absolute",
@@ -151,11 +151,9 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
 
 
   public componentDidMount() {
-
     getUsers(this._currentWebUrl, this._spHttpClient)
       .then((users: IUser[]) => {
         db = users;
-        // console.log('Users: ', users);
         const compare = (a, b) => {
           if (a.lastName < b.lastName)
             return -1;
@@ -166,7 +164,6 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
         db.sort(compare);
         // Assign an index to each user after sorting
         db.forEach((user, index) => {
-          console.log(index);
           user.index = index;
         });
 
@@ -184,14 +181,12 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
             });
           });
 
-        console.log(db);
         usersFiltered = db;
 
       });
   }
 
   public componentWillReceiveProps() {
-    console.log('running componentWillReceiveProps');
     let noOfUsersToShow = Number(this.props.heightUsers) * Number(this.props.widthUsers);
     let usersTemp = db.slice(0, noOfUsersToShow);
     getUsersProperties(usersTemp, this._currentWebUrl, this._spHttpClient)
@@ -242,8 +237,11 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
           usersOutput.forEach(user => {
             db[user.index] = { ...user };
           });
+          let maxPagination: number = Math.ceil(usersFiltered.length / this.state.noOfUsersToShow);
+          maxPagination = (maxPagination === 0) ? 1 : maxPagination;
+          const newPagination = (this.state.pagination === maxPagination) ? this.state.pagination : this.state.pagination + 1;
           this.setState({
-            pagination: this.state.pagination + 1,
+            pagination: newPagination,
             users: usersOutput.slice((this.state.pagination) * this.state.noOfUsersToShow, (this.state.pagination + 1) * this.state.noOfUsersToShow)
           });
         });

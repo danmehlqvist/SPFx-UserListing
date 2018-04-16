@@ -6,7 +6,8 @@ define([], function() {
     "WPSBasicGroupName": "Settings",
     "WPSWidthFieldLabel":"Width in number of users",
     "WPSHeightFieldLabel":"Height in number of users",
-    "WPSPropertyPaneDescription": "",
-    "SearchPlaceholder":"Search Employees"
+    "WPSPropertyPaneDescription": "UserListing v1.0.0",
+    "SearchPlaceholder":"Search Employees",
+    "SearchNoUsersFound":"No users found!"
   }
 });

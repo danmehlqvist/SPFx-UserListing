@@ -40,18 +40,6 @@ export default class UserListingWebPart extends BaseClientSideWebPart<IUserListi
     return Version.parse('1.0');
   }
 
-  private _valdiateWidthUsersAndHeightUsers(value: string): string {
-    if (value === null || value.trim().length === 0) { // Empty input
-      console.log(this.context.propertyPane);
-      this.render();
-      return "Field cannot be empty";
-    }
-    //  else if (Number(value)===NaN) { // Not a number
-    //   return "Please enter a number";
-    // }
-    return '';
-  }
-
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
