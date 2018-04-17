@@ -5,17 +5,22 @@ import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
   PropertyPaneTextField,
-  PropertyPaneSlider
+  PropertyPaneSlider,
+  PropertyPaneToggle
 } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'UserListingWebPartStrings';
 import UserListing from './/UserListing';
 import { IUserListingProps } from './IUserListingProps';
+import { SPHttpClient } from '@microsoft/sp-http';
 
 export interface IUserListingWebPartProps {
   description: string;
   heightUsers: string;
   widthUsers: string;
+  spHttpClient: SPHttpClient;
+  displayTitle:boolean;
+  displayDepartment:boolean;
 }
 
 export default class UserListingWebPart extends BaseClientSideWebPart<IUserListingWebPartProps> {
@@ -28,7 +33,9 @@ export default class UserListingWebPart extends BaseClientSideWebPart<IUserListi
         heightUsers: this.properties.heightUsers,
         widthUsers: this.properties.widthUsers,
         absoluteUrl: this.context.pageContext.site.absoluteUrl,
-        spHttpClient: this.context.spHttpClient
+        spHttpClient: this.context.spHttpClient,
+        displayTitle: this.properties.displayTitle,
+        displayDepartment: this.properties.displayDepartment
       }
     );
 
@@ -68,6 +75,16 @@ export default class UserListingWebPart extends BaseClientSideWebPart<IUserListi
                   step:1,
                   showValue:true,
                   disabled:false
+                }),
+                PropertyPaneToggle('displayTitle',{
+                  label: strings.WPSDisplayTitleLabel,
+                  offText:strings.WPSDisplayOff,
+                  onText:strings.WPSDisplayOn
+                }),
+                PropertyPaneToggle('displayDepartment',{
+                  label: strings.WPSDisplayDepartmentLabel,
+                  offText: strings.WPSDisplayOff,
+                  onText: strings.WPSDisplayOn
                 })
               ]
             }

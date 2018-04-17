@@ -1,33 +1,33 @@
 .DisplaySingleUserComp {
   display: grid;
-  grid-template-columns: 80px auto;
+  grid-template-columns: 92px auto;
   background: #ffffff;
-  padding: 10px;
+  padding: 5px;
   border: 1px solid black;
   border-radius: 10px;
   width: 300px;
   margin: 0 auto;
-  min-height: 95px;
+  min-height: 72px;
   .pic img {
     height: 72px;
     width: 72px;
+    margin: 5px 15px 10px 5px;
     border-radius: 36px;
-    float: left;
-    margin-right: 10px;
   }
   .text {
     position: relative;
     text-align: left;
     font-size: 12px;
     .name {
+      margin-bottom:0;
       font-size: 21px;
     }
-    a {
-      text-decoration: none;
-      color: black;
-      :hover {
-        text-decoration: underline;
-      }
+    .title{
+      font-size:inherit;
+      font-style:italic;
+    }
+    .department {
+      font-size: inherit;
     }
     div {
       margin-bottom: 6px;
@@ -45,12 +45,25 @@
     }
   }
   .icon {
-    font-weight: bold;
-    position:relative;
-    bottom:-1px;
+    position: relative;
+    bottom: -1px;
   }
   .emailIcon {
     position: relative;
     bottom: -2px;
+  }
+}
+
+.DisplaySingleUserComp .email {
+  width:280px;
+  font-size:12px;
+  margin:0px auto;
+  color: red;
+  a {
+    text-decoration: none;
+    color: black;
+    :hover {
+      text-decoration: underline;
+    }
   }
 }

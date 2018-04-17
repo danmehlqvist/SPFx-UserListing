@@ -7,24 +7,41 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
 
     public render(): React.ReactElement<IDisplaySingleUserCompProps> {
 
+        const title = (this.props.displayTitle) ? this.props.title : null;
+        const department = (this.props.displayDepartment) ? this.props.department : null;
         const renderData = (data: string, icon: string): JSX.Element => {
-            if (data == null || data === '') {
-                return null;
+            switch (data) {
+                case null:
+                case '':
+                    return null;
+                case this.props.email:
+                    return (
+                        <div>
+                            <span className={styles.emailIcon}> <Icon iconName={icon} /></span> <span> {data}</span>
+                        </div>
+                    );
+                case this.props.firstName:
+                    return (
+                        <div className={styles.name}>
+                            {this.props.firstName} {this.props.lastName}
+                        </div>
+                    );
+                case this.props.title:                    
+                    return (
+                        <div className={styles.title}>
+                            {this.props.title}
+                        </div>
+                    );
+                
+                default:
+                    return (
+                        <div>
+                            <span className={styles.icon}><Icon iconName={icon} /></span> <span> {data}</span>
+                        </div>
+                    );
             }
-            if (data === this.props.email) {
-                return (
-                    <div>
-                        <span className={styles.emailIcon}> <Icon iconName={icon} /></span> <span> {data}</span>
-                    </div>
-                );
-            }
-            return (
-                <div>
-                    <span className={styles.icon}><Icon iconName={icon} /></span> <span> {data}</span>
-                </div>
-            );
         };
-        
+
         return (
             <div className={styles.DisplaySingleUserComp}>
                 <div className={styles.pic}>
@@ -34,19 +51,26 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
                     <div className={styles.closeButton} onClick={this.props.closeButton}>
                         <Icon iconName="ChromeClose" />
                     </div>
-                    <div className={styles.name}>
-                        {this.props.firstName} {this.props.lastName}
-                    </div>
-                    <div>
-                        {renderData(this.props.workPhone, 'Phone')}
-                    </div>
-                    <div>
-                        {renderData(this.props.cellPhone, 'CellPhone')}
-                    </div>
-                    <div>
-                        <a href={"mailto:"+this.props.email}>{renderData(this.props.email, 'Mail')}</a>
-                    </div>
+                    {/* <div className={styles.name}> */}
+                    {renderData(this.props.firstName, null)}
+                    {/* </div>
+                    <div className={styles.title}> */}
+                    {renderData(title, null)}
+                    {/* </div>
+                    <div className={styles.department}> */}
+                    {renderData(department,null)}
+                    {/* </div>
+                    <div> */}
+                    {renderData(this.props.workPhone, 'Phone')}
+                    {/* </div>
+                    <div> */}
+                    {renderData(this.props.cellPhone, 'CellPhone')}
+                    {/* </div> */}
                 </div>
+                <div className={styles.email}>
+                    <a href={"mailto:" + this.props.email}>{renderData(this.props.email, 'Mail')}</a>
+                </div>
+
             </div>
         );
 

@@ -5,4 +5,6 @@ export interface IUserListingProps {
   widthUsers:string;
   absoluteUrl:string;
   spHttpClient: SPHttpClient;
+  displayTitle:boolean;
+  displayDepartment:boolean;
 }

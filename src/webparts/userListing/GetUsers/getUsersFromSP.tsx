@@ -9,9 +9,9 @@ export default function getUsersFromSP(currentWebUrl: string, spHttpClient: SPHt
         .then((response) => {
             return response.json();
         }).then((data) => {
-            let usersTemp = data.value.filter(user => user.LoginName.startsWith('i:0#.f'));
+            let usersTemp = data.value.filter(user => user.LoginName.startsWith('i:0#.f'));    
             // console.clear();
-            //console.log(data);
+            // console.log(data);
             //  console.log(usersTemp);
 
             let users: IUser[] = [];

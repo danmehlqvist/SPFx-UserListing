@@ -48,7 +48,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
 
 
   public render(): React.ReactElement<IUserListingProps> {
-
+    // Calculate how far from the top the start of the chevrons should be
     let accordionTop: number = (Number(this.props.heightUsers) * 160 - 64) / 2;
     let sizeStyle = {
       // width of DisplayUserComp is 120. Width of chevrons is 64. 10 just some extra.
@@ -57,9 +57,9 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
       height: Number(this.props.heightUsers) * 160 + 53 + 10 + 'px'
     };
 
-    let accordionTopStyle = {
-      marginTop: accordionTop
-    };
+    // let accordionTopStyle = {
+    //   marginTop: accordionTop
+    // };
 
     let chevronLeftClasses: string = styles.chevron;
     let chevronRightClasses: string = styles.chevron;
@@ -115,14 +115,18 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
         filter: "blur(3px)"
       };
       displaySingleUser = (
-        <DisplaySingleUserComp
+        <DisplaySingleUserComp     
+          department= {this.state.singleUserToDisplay.department}
+          title={this.state.singleUserToDisplay.title}
           email={this.state.singleUserToDisplay.email}
           firstName={this.state.singleUserToDisplay.firstName}
           lastName={this.state.singleUserToDisplay.lastName}
           cellPhone={this.state.singleUserToDisplay.cellPhone}
           workPhone={this.state.singleUserToDisplay.workPhone}
           pictureUrl={this.state.singleUserToDisplay.pictureUrl}
-          closeButton={this._handleCloseDisplaySingleUser} />
+          closeButton={this._handleCloseDisplaySingleUser}
+          displayTitle={this.props.displayTitle}
+          displayDepartment={this.props.displayDepartment} />
       );
     }
 
@@ -136,11 +140,12 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
             search={this.state.search}
             changeHandler={this._searchValueChangeHandler} />
           <div className={styles.accordion}>
-            <div className={chevronLeftClasses} style={accordionTopStyle} onClick={this._handleChevronLeft}>
+            <div className={chevronLeftClasses} style={{marginTop:accordionTop}} onClick={this._handleChevronLeft}>
+            {/* <div className={chevronLeftClasses} style={accordionTopStyle} onClick={this._handleChevronLeft}> */}
               <Icon icon={chevronLeft} size={64} />
             </div>
             {users}
-            <div className={chevronRightClasses} style={accordionTopStyle} onClick={this._handleChevronRight}>
+            <div className={chevronRightClasses} style={{marginTop:accordionTop}} onClick={this._handleChevronRight}>
               <Icon icon={chevronRight} size={64} />
             </div>
           </div>
@@ -182,7 +187,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
           });
 
         usersFiltered = db;
-
+          console.log(db);
       });
   }
 

@@ -3,6 +3,10 @@ declare interface IUserListingWebPartStrings {
   WPSHeightFieldLabel: string;
   WPSBasicGroupName: string;
   WPSPropertyPaneDescription: string;
+  WPSDisplayTitleLabel:string;
+  WPSDisplayDepartmentLabel:string;
+  WPSDisplayOn: string;
+  WPSDisplayOff:string;
   SearchPlaceholder: string;
   SearchNoUsersFound: string;
 }
