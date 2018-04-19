@@ -19,12 +19,12 @@
     text-align: left;
     font-size: 12px;
     .name {
-      margin-bottom:0;
+      margin-bottom: 0;
       font-size: 21px;
     }
-    .title{
-      font-size:inherit;
-      font-style:italic;
+    .title {
+      font-size: inherit;
+      font-style: italic;
     }
     .department {
       font-size: inherit;
@@ -34,9 +34,9 @@
     }
     .closeButton {
       position: absolute;
-      color: #0078d7;
-      top: 0px;
-      right: 10px;
+      color: black;
+      top: 5px;
+      right: 7px;
       cursor: pointer;
       :hover {
         border: 1px solid #0078d7;
@@ -55,9 +55,9 @@
 }
 
 .DisplaySingleUserComp .email {
-  width:280px;
-  font-size:12px;
-  margin:0px auto;
+  width: 280px;
+  font-size: 12px;
+  margin: 0px auto;
   color: red;
   a {
     text-decoration: none;
