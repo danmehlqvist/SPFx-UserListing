@@ -3,7 +3,7 @@
   "solution": {
     "name": "user-listing-client-side-solution",
     "id": "15dd8afb-3feb-41f5-b53e-c71a930a9239",
-    "version": "1.0.0.2",
+    "version": "1.0.0.3",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true
   },
