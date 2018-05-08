@@ -52,21 +52,28 @@ const getUsersBatched = (users: IUser[], currentWebUrl: string, spHttpClient: SP
 
     // Build header
     let batchRequestHeader = {
-        'Content-Type': `multipart/mixed; boundary="${batchUUID}"`
+        'Content-Type': `multipart/mixed; boundary=${batchUUID}`
     };
     // Build body
     let batchContents = [];
     users.forEach(user => {
         batchContents.push(...createBatchEntry(user));
     });
-
     batchContents.push('--' + batchUUID);
+   
     let batchBody = batchContents.join('\r\n');
+
 
     const options: ISPHttpClientBatchOptions = {
         headers: batchRequestHeader,
         body: batchBody
     };
+
+
+    console.clear();
+    console.log('\nbatchBody:\n',batchBody);
+    console.log('\nheaders:\n',batchRequestHeader);
+    console.log('\ncurrentWebUrl:\n',currentWebUrl);
 
     return spHttpClient.post(`${currentWebUrl}/_api/$batch`, SPHttpClient.configurations.v1, options)
         .then((response: any) => {

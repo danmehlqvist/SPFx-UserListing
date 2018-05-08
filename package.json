@@ -19,6 +19,7 @@
     "@types/react-dom": "15.5.6",
     "@types/webpack-env": ">=1.12.1 <1.14.0",
     "font-awesome": "^4.7.0",
+    "isemail": "^3.1.2",
     "react": "15.6.2",
     "react-dom": "15.6.2",
     "react-icons-kit": "^1.0.7"

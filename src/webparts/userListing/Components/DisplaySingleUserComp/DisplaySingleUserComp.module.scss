@@ -51,6 +51,8 @@
   .emailIcon {
     position: relative;
     bottom: -2px;
+    margin-right: 4px;
+    font-size:110%;
   }
 }
 
@@ -58,12 +60,11 @@
   width: 280px;
   font-size: 12px;
   margin: 0px auto;
-  color: red;
   a {
     text-decoration: none;
-    color: black;
-    :hover {
-      text-decoration: underline;
-    }
   }
+}
+
+.DisplaySingleUserComp .email a:hover {
+  text-decoration: underline;
 }

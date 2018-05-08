@@ -14,25 +14,19 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
                 case null:
                 case '':
                     return null;
-                case this.props.email:
-                    return (
-                        <div>
-                            <span className={styles.emailIcon}> <Icon iconName={icon} /></span> <span> {data}</span>
-                        </div>
-                    );
                 case this.props.firstName:
                     return (
                         <div className={styles.name}>
                             {this.props.firstName} {this.props.lastName}
                         </div>
                     );
-                case this.props.title:                    
+                case this.props.title:
                     return (
                         <div className={styles.title}>
                             {this.props.title}
                         </div>
                     );
-                
+
                 default:
                     return (
                         <div>
@@ -51,24 +45,19 @@ export default class DisplaySingleUserComp extends React.Component<IDisplaySingl
                     <div className={styles.closeButton} onClick={this.props.closeButton}>
                         <Icon iconName="ChromeClose" />
                     </div>
-                    {/* <div className={styles.name}> */}
                     {renderData(this.props.firstName, null)}
-                    {/* </div>
-                    <div className={styles.title}> */}
                     {renderData(title, null)}
-                    {/* </div>
-                    <div className={styles.department}> */}
-                    {renderData(department,null)}
-                    {/* </div>
-                    <div> */}
+                    {renderData(department, null)}
                     {renderData(this.props.workPhone, 'Phone')}
-                    {/* </div>
-                    <div> */}
                     {renderData(this.props.cellPhone, 'CellPhone')}
-                    {/* </div> */}
                 </div>
                 <div className={styles.email}>
-                    <a href={"mailto:" + this.props.email}>{renderData(this.props.email, 'Mail')}</a>
+                    <Icon className={styles.emailIcon} iconName={'Mail'} />
+
+                    {/* <a href={'mailto:dan@kuken.com'} target="_top"> */}
+                    <a href={"mailto:" + this.props.email}>
+                        {this.props.email}
+                    </a>
                 </div>
 
             </div>
