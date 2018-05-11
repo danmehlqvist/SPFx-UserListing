@@ -12,6 +12,9 @@ define([], function() {
     "WPSDisplayOff":"No!",
     "WPSDisplayOn":"Yes!",
     "SearchPlaceholder":"Search Employees",
-    "SearchNoUsersFound":"No users found!"
+    "SearchNoUsersFound":"No users found!",
+    "WPSSortByDepartmentLabel":"Show Dropdown for Department? Warning! Will put extra load on the server",
+    "WPSNoSortByDepartment":"No dropdown displayed",
+    "WPSSortByDepartment":"Dropdown displayed"    
   }
 });

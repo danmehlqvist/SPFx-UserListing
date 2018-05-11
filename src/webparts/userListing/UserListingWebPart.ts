@@ -85,6 +85,11 @@ export default class UserListingWebPart extends BaseClientSideWebPart<IUserListi
                   label: strings.WPSDisplayDepartmentLabel,
                   offText: strings.WPSDisplayOff,
                   onText: strings.WPSDisplayOn
+                }),
+                PropertyPaneToggle('sortByDepartment',{
+                  label: strings.WPSSortByDepartmentLabel,
+                  offText: strings.WPSNoSortByDepartment,
+                  onText: strings.WPSSortByDepartment
                 })
               ]
             }

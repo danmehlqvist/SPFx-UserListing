@@ -9,6 +9,9 @@ declare interface IUserListingWebPartStrings {
   WPSDisplayOff:string;
   SearchPlaceholder: string;
   SearchNoUsersFound: string;
+  WPSSortByDepartmentLabel:string;
+  WPSNoSortByDepartment:string;
+  WPSSortByDepartment:string;
 }
 
 declare module 'UserListingWebPartStrings' {

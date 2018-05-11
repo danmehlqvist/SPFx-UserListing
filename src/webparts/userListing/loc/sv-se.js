@@ -12,6 +12,11 @@ define([], function () {
     "WPSDisplayOff": "Nej!",
     "WPSDisplayOn": "Ja!",
     "SearchPlaceholder": "Sök användare",
-    "SearchNoUsersFound": "Inga användare hittade!"
+    "SearchNoUsersFound": "Inga användare hittade!",
+    "WPSSortByDepartmentLabel":"Visa rullmeny för avdelningar? Varning! Lägger extra last på servern",
+    "WPSNoSortByDepartment":"Ingen rullmeny visas",
+    "WPSSortByDepartment":"Rullmenyn visas"
+    
+
   }
 });
