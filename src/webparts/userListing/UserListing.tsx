@@ -30,6 +30,7 @@ import { IODataUser, IODataWeb } from "@microsoft/sp-odata-types";
 
 let db: IUser[] = [];
 let usersFiltered: IUser[] = db;
+let departments = [];
 
 export default class UserListing extends React.Component<IUserListingProps, {}> {
 
@@ -44,8 +45,10 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     noOfUsersToShow: Number(this.props.widthUsers) * Number(this.props.heightUsers),
     displaySingleUser: false,
     singleUserToDisplay: null,
-    sortByDepartment: this.props.sortByDepartment
+    sortByDepartment: this.props.sortByDepartment,
+    department: null
   };
+
 
 
   public render(): React.ReactElement<IUserListingProps> {
@@ -117,8 +120,8 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
         filter: "blur(3px)"
       };
       displaySingleUser = (
-        <DisplaySingleUserComp     
-          department= {this.state.singleUserToDisplay.department}
+        <DisplaySingleUserComp
+          department={this.state.singleUserToDisplay.department}
           title={this.state.singleUserToDisplay.title}
           email={this.state.singleUserToDisplay.email}
           firstName={this.state.singleUserToDisplay.firstName}
@@ -139,16 +142,18 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
         </div>
         <div className={styles.content} style={contentStyle}>
           <SearchComp
+            changeDepartmentHandler={this._handleChangeOfDepartment}
+            departments={departments}
             search={this.state.search}
-            changeHandler={this._searchValueChangeHandler} 
-            sortByDepartment={this.state.sortByDepartment}/>
+            changeHandler={this._searchValueChangeHandler}
+            sortByDepartment={this.state.sortByDepartment} />
           <div className={styles.accordion}>
-            <div className={chevronLeftClasses} style={{marginTop:accordionTop}} onClick={this._handleChevronLeft}>
-            {/* <div className={chevronLeftClasses} style={accordionTopStyle} onClick={this._handleChevronLeft}> */}
+            <div className={chevronLeftClasses} style={{ marginTop: accordionTop }} onClick={this._handleChevronLeft}>
+              {/* <div className={chevronLeftClasses} style={accordionTopStyle} onClick={this._handleChevronLeft}> */}
               <Icon icon={chevronLeft} size={64} />
             </div>
             {users}
-            <div className={chevronRightClasses} style={{marginTop:accordionTop}} onClick={this._handleChevronRight}>
+            <div className={chevronRightClasses} style={{ marginTop: accordionTop }} onClick={this._handleChevronRight}>
               <Icon icon={chevronRight} size={64} />
             </div>
           </div>
@@ -159,7 +164,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
 
 
   public componentDidMount() {
-    getUsers(this._currentWebUrl, this._spHttpClient,)
+    getUsers(this._currentWebUrl, this._spHttpClient, )
       .then((users: IUser[]) => {
         db = users;
         const compare = (a, b) => {
@@ -175,8 +180,12 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
           user.index = index;
         });
 
-        let usersTemp = db.slice(0, this.state.noOfUsersToShow);
-        
+        let usersTemp;
+        if (this.state.sortByDepartment) {
+          usersTemp = db;
+        } else {
+          usersTemp = db.slice(0, this.state.noOfUsersToShow);
+        }
         getUsersProperties(usersTemp, this._currentWebUrl, this._spHttpClient)
           .then(usersOutput => {
             // Updating the database
@@ -184,14 +193,33 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
               db[user.index] = { ...user };
             });
 
+            if (this.state.sortByDepartment) {
+              // departments = db.filter(user=> )
+              const departmentsAll = db.map(user => {
+                console.log(user);
+                return user.department
+              });
+              // departments = departmentsAll.filter( onlyUnique );
+              departments = departmentsAll.filter((v, i, a) => a.indexOf(v) === i);
+              departments = departments.filter(e => e);
+              console.log(departments);
+            }
+
             this.setState({
               initialized: true,
               users: db.slice(0, this.state.noOfUsersToShow)
             });
+
+
+
           });
 
+        // SHould this be here or below?
         usersFiltered = db;
-          console.log(db);
+        console.log(db);
+
+
+
       });
   }
 
@@ -270,4 +298,14 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     });
   }
 
+  private _handleChangeOfDepartment = (event) => {
+    console.log(`Department was changed to ${event.key}`);
+    console.log(event);
+    console.log('key',event.key);
+    console.log('string',strings.DropdownAllDepartments);
+    if (event.key===strings.DropdownAllDepartments){
+      console.log('All departments');
+    }
+
+  }
 }

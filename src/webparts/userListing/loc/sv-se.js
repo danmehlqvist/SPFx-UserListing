@@ -15,8 +15,8 @@ define([], function () {
     "SearchNoUsersFound": "Inga användare hittade!",
     "WPSSortByDepartmentLabel":"Visa rullmeny för avdelningar? Varning! Lägger extra last på servern",
     "WPSNoSortByDepartment":"Ingen rullmeny visas",
-    "WPSSortByDepartment":"Rullmenyn visas"
-    
-
+    "WPSSortByDepartment":"Rullmenyn visas",
+    "DropdownAllDepartments":"Alla avdelningar",
+    "DropdownPlaceholder":"Avdelning"
   }
 });

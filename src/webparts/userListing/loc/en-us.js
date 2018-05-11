@@ -15,6 +15,8 @@ define([], function() {
     "SearchNoUsersFound":"No users found!",
     "WPSSortByDepartmentLabel":"Show Dropdown for Department? Warning! Will put extra load on the server",
     "WPSNoSortByDepartment":"No dropdown displayed",
-    "WPSSortByDepartment":"Dropdown displayed"    
+    "WPSSortByDepartment":"Dropdown displayed",
+    "DropdownAllDepartments":"All departments",
+    "DropdownPlaceholder":"Departments"
   }
 });

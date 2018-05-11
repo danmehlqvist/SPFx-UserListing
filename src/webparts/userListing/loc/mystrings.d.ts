@@ -12,6 +12,8 @@ declare interface IUserListingWebPartStrings {
   WPSSortByDepartmentLabel:string;
   WPSNoSortByDepartment:string;
   WPSSortByDepartment:string;
+  DropdownAllDepartments:string;
+  DropdownPlaceholder:string;
 }
 
 declare module 'UserListingWebPartStrings' {

@@ -7,19 +7,23 @@ import { Dropdown, IDropdown, DropdownMenuItemType, IDropdownOption } from 'offi
 
 // this.props.sortByDepartment
 // tslint:disable:jsx-no-lambda
+
+
 export default class SearchComp extends React.Component<any, any> {
+
+
     public render() {
 
-        const testDepartments = [
-            'dep1',
-            'dep2',
-            'dep3'
-        ];
+        const allDepartmentsString = strings.DropdownAllDepartments;
 
         if (this.props.sortByDepartment) {
 
-            const options = testDepartments.map((dep) => {
-                return { key: dep, text: dep };
+            const options = [{
+                key: allDepartmentsString,
+                text: allDepartmentsString
+            }];
+            this.props.departments.forEach((dep) => {
+                options.push({ key: dep, text: dep });
             });
 
 
@@ -33,10 +37,10 @@ export default class SearchComp extends React.Component<any, any> {
                     </div>
                     <div className={styles.Dropdown}>
                         <Dropdown
-                            placeHolder='Choose department'
+                            placeHolder={strings.DropdownPlaceholder}
                             id='dropdown'
                             options={options}
-                            onChanged={this._handleOnChange}
+                            onChanged={this.props.changeDepartmentHandler}
                         />
                     </div>
                 </div >
