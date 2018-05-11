@@ -12,35 +12,28 @@
     // display:grid;
     // grid-template-columns: auto auto auto;
     display: flex;
-    flex-wrap: wrap;
-    // justify-content: space-around;
-   
+    flex-wrap: wrap; // justify-content: space-around;
   }
-   .accordion {
+  .accordion {
     display: grid;
     grid-template-columns: 64px auto 64px;
-  }
-  // Font size for chevronLeft and chevronRight is set in Icon component in UserListing.tsx
-   .chevron {
-    width:64px;
+  } // Font size for chevronLeft and chevronRight is set in Icon component in UserListing.tsx
+  .chevron {
+    width: 64px;
     opacity: 0.8;
-    color:black;
+    color: black;
   }
-  
-   .notActive {
+  .notActive {
     opacity: 0.25;
   }
-
-  .singleUser{
-    font: inherit;   
+  .singleUser {
+    font: inherit;
   }
 }
 
 .hide {
   display: none;
 }
-
-
 
 // @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 // .userListing {

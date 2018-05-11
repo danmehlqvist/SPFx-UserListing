@@ -21,6 +21,7 @@ export interface IUserListingWebPartProps {
   spHttpClient: SPHttpClient;
   displayTitle:boolean;
   displayDepartment:boolean;
+  sortByDepartment:boolean;
 }
 
 export default class UserListingWebPart extends BaseClientSideWebPart<IUserListingWebPartProps> {
@@ -35,7 +36,8 @@ export default class UserListingWebPart extends BaseClientSideWebPart<IUserListi
         absoluteUrl: this.context.pageContext.site.absoluteUrl,
         spHttpClient: this.context.spHttpClient,
         displayTitle: this.properties.displayTitle,
-        displayDepartment: this.properties.displayDepartment
+        displayDepartment: this.properties.displayDepartment,
+        sortByDepartment: this.properties.sortByDepartment
       }
     );
 

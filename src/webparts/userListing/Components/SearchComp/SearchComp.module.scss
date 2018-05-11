@@ -1,4 +1,19 @@
-.SearchComp{
+.SearchCompWithoutDropdown {
     margin: 10px 64px;
-    max-width:400px;
+  max-width: 400px;
+}
+
+.SearchCompWithDropdown {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  margin: 10px 64px;
+  .SearchBox {
+    width:90%;
+    display: inline-block;
+    margin:0 auto 0 0;
+  }
+  .Dropdown {
+    width:90%;
+    margin:0 0 0 auto;
+  }
 }

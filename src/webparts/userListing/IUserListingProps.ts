@@ -7,4 +7,5 @@ export interface IUserListingProps {
   spHttpClient: SPHttpClient;
   displayTitle:boolean;
   displayDepartment:boolean;
+  sortByDepartment:boolean;
 }

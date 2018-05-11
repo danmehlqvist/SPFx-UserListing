@@ -43,11 +43,13 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     search: "",
     noOfUsersToShow: Number(this.props.widthUsers) * Number(this.props.heightUsers),
     displaySingleUser: false,
-    singleUserToDisplay: null
+    singleUserToDisplay: null,
+    sortByDepartment: this.props.sortByDepartment
   };
 
 
   public render(): React.ReactElement<IUserListingProps> {
+
     // Calculate how far from the top the start of the chevrons should be
     let accordionTop: number = (Number(this.props.heightUsers) * 160 - 64) / 2;
     let sizeStyle = {
@@ -138,7 +140,8 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
         <div className={styles.content} style={contentStyle}>
           <SearchComp
             search={this.state.search}
-            changeHandler={this._searchValueChangeHandler} />
+            changeHandler={this._searchValueChangeHandler} 
+            sortByDepartment={this.state.sortByDepartment}/>
           <div className={styles.accordion}>
             <div className={chevronLeftClasses} style={{marginTop:accordionTop}} onClick={this._handleChevronLeft}>
             {/* <div className={chevronLeftClasses} style={accordionTopStyle} onClick={this._handleChevronLeft}> */}
@@ -156,7 +159,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
 
 
   public componentDidMount() {
-    getUsers(this._currentWebUrl, this._spHttpClient)
+    getUsers(this._currentWebUrl, this._spHttpClient,)
       .then((users: IUser[]) => {
         db = users;
         const compare = (a, b) => {
@@ -173,6 +176,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
         });
 
         let usersTemp = db.slice(0, this.state.noOfUsersToShow);
+        
         getUsersProperties(usersTemp, this._currentWebUrl, this._spHttpClient)
           .then(usersOutput => {
             // Updating the database
