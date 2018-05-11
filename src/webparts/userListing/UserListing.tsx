@@ -197,7 +197,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
               // departments = db.filter(user=> )
               const departmentsAll = db.map(user => {
                 console.log(user);
-                return user.department
+                return user.department;
               });
               // departments = departmentsAll.filter( onlyUnique );
               departments = departmentsAll.filter((v, i, a) => a.indexOf(v) === i);
@@ -241,20 +241,40 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
       });
   }
 
+  // private _updateUsersFiltered = () =>{
+
+  // }
+
   private _searchValueChangeHandler = (event) => {
-    usersFiltered = db.filter(item => homemadeStartsWith(item.lastName, event) || homemadeStartsWith(item.firstName, event));
-    getUsersProperties(usersFiltered, this._currentWebUrl, this._spHttpClient)
-      .then(usersOutput => {
-        // Updating the database
-        usersOutput.forEach(user => {
-          db[user.index] = { ...user };
-        });
-        this.setState({
-          search: event,
-          pagination: 1,
-          users: usersOutput.slice(0, this.state.noOfUsersToShow)
-        });
+
+    if (this.state.sortByDepartment) {
+      usersFiltered = db.filter(item =>
+        (item.department === this.state.department || this.state.department === null)
+        && (homemadeStartsWith(item.lastName, event)
+          || homemadeStartsWith(item.firstName, event)))
+
+      this.setState({
+        pagination: 1,
+        users: usersFiltered.slice(0, this.state.noOfUsersToShow),
+        search: event
       });
+
+    } else {
+
+      usersFiltered = db.filter(item => homemadeStartsWith(item.lastName, event) || homemadeStartsWith(item.firstName, event));
+      getUsersProperties(usersFiltered, this._currentWebUrl, this._spHttpClient)
+        .then(usersOutput => {
+          // Updating the database
+          usersOutput.forEach(user => {
+            db[user.index] = { ...user };
+          });
+          this.setState({
+            search: event,
+            pagination: 1,
+            users: usersOutput.slice(0, this.state.noOfUsersToShow)
+          });
+        });
+    }
   }
 
   private _handleChevronLeft = (event) => {
@@ -299,13 +319,42 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
   }
 
   private _handleChangeOfDepartment = (event) => {
-    console.log(`Department was changed to ${event.key}`);
-    console.log(event);
-    console.log('key',event.key);
-    console.log('string',strings.DropdownAllDepartments);
-    if (event.key===strings.DropdownAllDepartments){
-      console.log('All departments');
+
+    let department;
+
+    if (event.key === strings.DropdownAllDepartments) {
+      department = null;
+    } else {
+      department = event.key
     }
 
+    if (this.state.sortByDepartment) {
+      usersFiltered = db.filter(item =>
+        item.department === department
+        && (homemadeStartsWith(item.lastName, this.state.search)
+          || homemadeStartsWith(item.firstName, this.state.search)))
+
+      this.setState({
+        pagination: 1,
+        users: usersFiltered.slice(0, this.state.noOfUsersToShow),
+        department: department
+      });
+
+    } else {
+
+      usersFiltered = db.filter(item => homemadeStartsWith(item.lastName, this.state.search) || homemadeStartsWith(item.firstName, this.state.search));
+      getUsersProperties(usersFiltered, this._currentWebUrl, this._spHttpClient)
+        .then(usersOutput => {
+          // Updating the database
+          usersOutput.forEach(user => {
+            db[user.index] = { ...user };
+          });
+          this.setState({
+            department: department,
+            pagination: 1,
+            users: usersOutput.slice(0, this.state.noOfUsersToShow)
+          });
+        });
+    }
   }
 }
