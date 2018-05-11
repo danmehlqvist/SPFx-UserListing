@@ -251,7 +251,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
       usersFiltered = db.filter(item =>
         (item.department === this.state.department || this.state.department === null)
         && (homemadeStartsWith(item.lastName, event)
-          || homemadeStartsWith(item.firstName, event)))
+          || homemadeStartsWith(item.firstName, event)));
 
       this.setState({
         pagination: 1,
@@ -325,14 +325,14 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
     if (event.key === strings.DropdownAllDepartments) {
       department = null;
     } else {
-      department = event.key
+      department = event.key;
     }
 
     if (this.state.sortByDepartment) {
       usersFiltered = db.filter(item =>
-        item.department === department
+        (item.department === department || department === null)
         && (homemadeStartsWith(item.lastName, this.state.search)
-          || homemadeStartsWith(item.firstName, this.state.search)))
+          || homemadeStartsWith(item.firstName, this.state.search)));
 
       this.setState({
         pagination: 1,
