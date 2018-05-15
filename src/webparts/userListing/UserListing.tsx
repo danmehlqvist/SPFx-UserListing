@@ -224,6 +224,7 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
   }
 
   public componentWillReceiveProps() {
+    console.log('componentWillRecieveProps');
     let noOfUsersToShow = Number(this.props.heightUsers) * Number(this.props.widthUsers);
     let usersTemp = db.slice(0, noOfUsersToShow);
     getUsersProperties(usersTemp, this._currentWebUrl, this._spHttpClient)
@@ -236,7 +237,9 @@ export default class UserListing extends React.Component<IUserListingProps, {}> 
         this.setState({
           noOfUsersToShow: noOfUsersToShow,
           users: db.slice(0, noOfUsersToShow),
-          search: ''
+          search: '',
+          pagination:1,
+          sortByDepartment: this.props.sortByDepartment
         });
       });
   }

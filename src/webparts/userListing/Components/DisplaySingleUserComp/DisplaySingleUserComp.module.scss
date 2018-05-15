@@ -52,7 +52,7 @@
     position: relative;
     bottom: -2px;
     margin-right: 4px;
-    font-size:110%;
+    font-size: 110%;
   }
 }
 
@@ -60,11 +60,14 @@
   width: 280px;
   font-size: 12px;
   margin: 0px auto;
-  a {
+  a:visited,
+  a:link {
     text-decoration: none;
+    color: black;
   }
 }
 
-.DisplaySingleUserComp .email a:hover {
+.DisplaySingleUserComp .email a:hover,
+.DisplaySingleUserComp .email a:active {
   text-decoration: underline;
 }
